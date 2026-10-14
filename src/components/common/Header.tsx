@@ -10,7 +10,7 @@ function Header({ items = navigationItems }: { items?: typeof navigationItems })
             <NavLink className="site-brand" to="/">RATP</NavLink>
             <nav aria-label="Navigation principale">
                 <ul className="site-navigation">
-                    {items.map(({ to, label }) => (
+                    {items.filter(item => !item.hidden).map(({ to, label }) => (
                         <li key={to}>
                             <NavLink
                                 to={to}

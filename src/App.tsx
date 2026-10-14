@@ -11,7 +11,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           {
-            navigationItems.filter(item => !item.hidden).map(({ to, page, label }, index) => (
+            navigationItems.map(({ to, page, label }, index) => (
               <Route key={index} path={to} element={
                 <Layout title={label} >
                   {createElement(page)}
