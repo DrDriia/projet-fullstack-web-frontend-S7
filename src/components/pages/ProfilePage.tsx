@@ -9,7 +9,8 @@ export function ProfilePage() {
       {user ? (
         <>
           <dl className="profile-details">
-            <dt>Nom</dt><dd>{user.name}</dd>
+            <dt>Prénom</dt><dd>{user.prenom}</dd>
+            <dt>Nom</dt><dd>{user.nom}</dd>
             <dt>Email</dt><dd>{user.email}</dd>
             <dt>Rôle</dt><dd>{user.role === 'respo' ? 'Responsable' : 'Agent'}</dd>
           </dl>

@@ -5,9 +5,13 @@ export const login = async (email: string, password: string): Promise<User> => {
     // TODO : implement
     return {
         id: 1,
-        name: 'Bernard',
+        nom: 'Bernard',
+        prenom: 'Jean',
         email,
-        role: 'agent'
+        role: 'agent',
+        actif: true,
+        dateCreation: new Date(),
+        derniereConnexion: new Date()
     };
  };
 
