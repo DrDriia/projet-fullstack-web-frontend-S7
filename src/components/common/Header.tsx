@@ -26,8 +26,9 @@ function Header({ items = navigationItems }: { items?: typeof navigationItems })
             <div className="header-user">
                 {user ? (
                     <>
-                        <span>{user.name}</span>
-                        <small>{user.role === 'respo' ? 'Responsable' : 'Agent'}</small>
+                        <span>Bonjour {user.name}</span>
+                        <small>({user.role === 'respo' ? 'Responsable' : 'Agent'})</small>
+                        <span>Se déconnecter</span>
                     </>
                 ) : <span>Non connecté</span>}
             </div>
