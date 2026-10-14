@@ -1,7 +1,7 @@
 import { login as apiLogin, logout as apiLogout } from '../api/login';
 import { useUser } from '../context/useUser';
-import type { User, Equipement } from '../types';
-import { getEquipementByStation as apiGetEquipementByStation } from '../api/equipement';
+import type { User } from '../types';
+import { getAllStations, getEquipementByStation } from '../api/equipement';
 
 export function useApi() {
   const { setUser } = useUser();
@@ -17,9 +17,10 @@ export function useApi() {
     setUser(null);
   }
 
-  async function getEquipementsByStation(stationId: number): Promise<Equipement[]> {
-    return await apiGetEquipementByStation(stationId);
-  }
-
-  return { login, logout, getEquipementsByStation };
+  return {
+    login,
+    logout,
+    getAllStations,
+    getEquipementByStation,
+  };
 }
