@@ -12,3 +12,9 @@ export const getEquipementByStation = async (stationId: number): Promise<Equipem
     // TODO : implement
     return equipements.filter(e => e.station.id === stationId);
 };
+
+export const getEquipementById = async (id: number): Promise<Equipement | undefined> => {
+    console.log(`Fetching equipment with ID: ${id}`);
+    // TODO : implement
+    return equipements.find(e => e.id === id);
+};
