@@ -1,9 +1,13 @@
 import { useState, type SyntheticEvent } from "react";
+import { useUser } from "../../utils/context/useUser";
+import { useNavigate } from "react-router-dom";
 
 export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string>();
+  const { setUser } = useUser();
+  const navigate = useNavigate();
 
   async function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -11,6 +15,13 @@ export function LoginPage() {
 
     try {
       console.log("TODO : APPEL DE L'API AVEC", email, password);
+      setUser({
+        id: 1,
+        name: "Bernard",
+        email,
+        role: "agent"
+      });
+      navigate("/");
     } catch {
       setError("L'authentification a échoué");
     }
@@ -19,9 +30,6 @@ export function LoginPage() {
   return (
     <div className="login-page">
       <div className="login-card">
-        <div className="login-brand" aria-hidden="true">
-          <span className="login-brand-icon">✦</span>
-        </div>
 
         <form className="login-form" onSubmit={handleSubmit}>
           {error && (
