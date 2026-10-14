@@ -5,17 +5,16 @@ export function ProfilePage() {
 
   return (
     <section>
-      <h1>Mon profil</h1>
       {user ? (
         <>
-          <dl className="profile-details">
-            <dt>Prénom</dt><dd>{user.prenom}</dd>
-            <dt>Nom</dt><dd>{user.nom}</dd>
-            <dt>Email</dt><dd>{user.email}</dd>
-            <dt>Rôle</dt><dd>{user.role === 'respo' ? 'Responsable' : 'Agent'}</dd>
-          </dl>
+          <div className="profile-details">
+            <div>Prénom</div><div>{user.prenom}</div>
+            <div>Nom</div><div>{user.nom}</div>
+            <div>Email</div><div>{user.email}</div>
+            <div>Rôle</div><div>{user.role === 'respo' ? 'Responsable' : 'Agent'}</div>
+          </div>
         </>
-      ) : <p>Aucun utilisateur connecté.</p>}
+      ) : <div>Aucun utilisateur connecté.</div>}
     </section>
   )
 }
