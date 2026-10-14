@@ -1,7 +1,7 @@
 import { useUser } from '../../utils/context/useUser'
 
 export function ProfilePage() {
-  const { user, setUser } = useUser()
+  const { user } = useUser()
 
   return (
     <section>
@@ -13,9 +13,6 @@ export function ProfilePage() {
             <dt>Email</dt><dd>{user.email}</dd>
             <dt>Rôle</dt><dd>{user.role === 'respo' ? 'Responsable' : 'Agent'}</dd>
           </dl>
-          <button className="counter" type="button" onClick={() => setUser(null)}>
-            Se déconnecter
-          </button>
         </>
       ) : <p>Aucun utilisateur connecté.</p>}
     </section>

@@ -1,9 +1,11 @@
 import { NavLink } from 'react-router-dom'
 import { navigationItems } from '../../utils/navigation'
 import { useUser } from '../../utils/context/useUser'
+import { useApi } from '../../utils/hooks/useApi'
 
 function Header({ items = navigationItems }: { items?: typeof navigationItems }) {
     const { user } = useUser()
+    const { logout } = useApi();
 
     return (
         <header className="site-header">
@@ -28,7 +30,7 @@ function Header({ items = navigationItems }: { items?: typeof navigationItems })
                     <>
                         <span>Bonjour {user.name}</span>
                         <small>({user.role === 'respo' ? 'Responsable' : 'Agent'})</small>
-                        <span>Se déconnecter</span>
+                        <button onClick={async () => await logout()}>Se déconnecter</button>
                     </>
                 ) : <span>Non connecté</span>}
             </div>
