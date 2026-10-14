@@ -1,26 +1,21 @@
 import { useState, type SyntheticEvent } from "react";
-import { useUser } from "../../utils/context/useUser";
+import { useApi } from "../../utils/hooks/useApi";
 import { useNavigate } from "react-router-dom";
 
 export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string>();
-  const { setUser } = useUser();
   const navigate = useNavigate();
+  const { login } = useApi();
 
   async function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(undefined);
 
     try {
-      console.log("TODO : APPEL DE L'API AVEC", email, password);
-      setUser({
-        id: 1,
-        name: "Bernard",
-        email,
-        role: "agent"
-      });
+      const user = await login(email, password);
+      console.log("Connexion bien réalisée avec", user);
       navigate("/");
     } catch {
       setError("L'authentification a échoué");
