@@ -1,13 +1,19 @@
 import type { Prestataire } from "./user";
 import type { Equipement } from "./equipement";
 
-export interface Incident {
-    id: number;
+export type Priority = 'HAUTE' | 'MOYENNE' | 'BASSE';
+export type Status = 'OUVERT' | 'AFFECTE' | 'RESOLU';
+
+export interface FormIncident {
     equipement: Equipement;
     titre: string;
     description: string;
-    priorite: string;
-    statut: string;
+    priorite: Priority;
+}
+
+export interface Incident extends FormIncident {
+    id: number;
+    statut: Status;
     dateOuverture: Date;
     prestataire?: Prestataire;
     dateAffectation?: Date;
