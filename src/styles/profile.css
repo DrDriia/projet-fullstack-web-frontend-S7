@@ -1,0 +1,6 @@
+.profile-details {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 12px 24px;
+  margin: 0 0 24px;
+}

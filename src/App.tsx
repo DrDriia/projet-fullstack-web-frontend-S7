@@ -3,7 +3,6 @@ import { createElement } from 'react'
 import Layout from './components/common/Layout'
 import UserProvider from './utils/context/UserProvider'
 import { navigationItems } from './utils/navigation'
-import './App.css'
 
 function App() {
   return (
