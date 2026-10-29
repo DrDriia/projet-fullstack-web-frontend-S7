@@ -3,12 +3,14 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useApi } from '../../utils/hooks/useApi'
 import type { Equipement } from '../../utils/types/equipement'
 import type { Incident } from '../../utils/types';
+import { IncidentForm } from '../common/IncidentForm';
 
 export function EquipementDetailsPage() {
   const { id } = useParams()
   const { getEquipementById, getIncidentByEquipement } = useApi()
   const [equipement, setEquipement] = useState<Equipement>()
   const [incidents, setIncidents] = useState<Incident[]>([])
+  const [showForm, setShowForm] = useState(false)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,6 +46,18 @@ export function EquipementDetailsPage() {
                     <div>Création</div><div>{new Date(equipement.dateCreation).toLocaleDateString('fr-FR')}</div>
                 </div>
                 <h2>Incidents liés à l'équipement</h2>
+                <div className="incident-actions">
+                    <button
+                        type="button"
+                        className="button-primary"
+                        aria-expanded={showForm}
+                        aria-controls="nouvel-incident"
+                        onClick={() => setShowForm(v => !v)}
+                    >
+                        {showForm ? 'Fermer le formulaire' : 'Déclarer un incident'}
+                    </button>
+                </div>
+                {showForm && <IncidentForm equipement={equipement} />}
                 {incidents.length === 0 ? (
                     <p>Aucun incident trouvé pour cet équipement.</p>
                 ) : <div className="equipment-table-scroll" role="region" aria-label="Equipements de la station" tabIndex={0}>
