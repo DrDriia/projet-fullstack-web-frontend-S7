@@ -63,12 +63,48 @@
 
 .header-user {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  min-width: 0;
+  max-width: 100%;
+  font-size: 14px;
+  line-height: 1.4;
   overflow-wrap: anywhere;
+}
+
+.header-user-details {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
 .header-user small {
   font-size: 13px;
+}
+
+.header-user button {
+  max-width: 100%;
+  min-height: 36px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text-h);
+  font: inherit;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+.header-user button:hover {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+}
+
+.header-user button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .page-content {
@@ -103,7 +139,6 @@
 
   .header-user {
     margin-left: auto;
-    max-width: 50%;
   }
 
   .navigation-link {

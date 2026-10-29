@@ -28,8 +28,10 @@ function Header({ items = navigationItems }: { items?: typeof navigationItems })
             <div className="header-user">
                 {user ? (
                     <>
-                        <span>Bonjour {user.prenom}</span>
-                        <small>({user.role === 'respo' ? 'Responsable' : 'Agent'})</small>
+                        <div className="header-user-details">
+                            <span>Bonjour {user.prenom}</span>
+                            <small>({user.role === 'respo' ? 'Responsable' : 'Agent'})</small>
+                        </div>
                         <button onClick={async () => await logout()}>Se déconnecter</button>
                     </>
                 ) : <span>Non connecté</span>}
