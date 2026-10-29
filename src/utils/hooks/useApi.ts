@@ -2,7 +2,7 @@ import { login as apiLogin, logout as apiLogout } from '../api/login';
 import { useUser } from '../context/useUser';
 import type { User } from '../types';
 import { getAllStations, getEquipementByStation, getEquipementById } from '../api/equipement';
-import { getIncidentByEquipement } from '../api/incident';
+import { getIncidentByEquipement, createIncident } from '../api/incident';
 
 export function useApi() {
   const { setUser } = useUser();
@@ -25,5 +25,6 @@ export function useApi() {
     getEquipementByStation,
     getEquipementById,
     getIncidentByEquipement,
+    createIncident,
   };
 }
