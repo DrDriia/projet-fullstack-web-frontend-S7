@@ -9,8 +9,9 @@ const PRIORITES: { value: Priority; label: string }[] = [
   { value: "HAUTE", label: "Haute" },
 ];
 
-export function IncidentForm({ equipement }: {
+export function IncidentForm({ equipement, onCreated }: {
   equipement: Equipement;
+  onCreated: () => void;
 }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -34,6 +35,7 @@ export function IncidentForm({ equipement }: {
     setTitle("");
     setDescription("");
     setPriority("BASSE");
+    onCreated();
   }
 
   return (

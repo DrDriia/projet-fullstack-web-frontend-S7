@@ -11,6 +11,7 @@ export function EquipementDetailsPage() {
   const [equipement, setEquipement] = useState<Equipement>()
   const [incidents, setIncidents] = useState<Incident[]>([])
   const [showForm, setShowForm] = useState(false)
+  const [refreshIncidents, setRefreshIncidents] = useState(false)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,7 +27,7 @@ export function EquipementDetailsPage() {
     }
     fetchEquipement();
 
-  }, [id, getEquipementById, navigate, getIncidentByEquipement])
+  }, [id, getEquipementById, navigate, getIncidentByEquipement, refreshIncidents])
 
   return (
     <section className="equipment-details">
@@ -57,7 +58,12 @@ export function EquipementDetailsPage() {
                         {showForm ? 'Fermer le formulaire' : 'Déclarer un incident'}
                     </button>
                 </div>
-                {showForm && <IncidentForm equipement={equipement} />}
+                {showForm && (
+                    <IncidentForm
+                        equipement={equipement}
+                        onCreated={() => setRefreshIncidents(v => !v)}
+                    />
+                )}
                 {incidents.length === 0 ? (
                     <p>Aucun incident trouvé pour cet équipement.</p>
                 ) : <div className="equipment-table-scroll" role="region" aria-label="Equipements de la station" tabIndex={0}>
