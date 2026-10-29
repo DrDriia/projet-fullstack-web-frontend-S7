@@ -9,6 +9,7 @@ export interface FormIncident {
     titre: string;
     description: string;
     priorite: Priority;
+    declareParId?: number;
 }
 
 export interface Incident extends FormIncident {
@@ -19,7 +20,6 @@ export interface Incident extends FormIncident {
     dateAffectation?: Date;
     dateResolution?: Date;
     commentaireResolution?: string;
-    declareParId?: number;
 }
 
 export interface Evaluation {
