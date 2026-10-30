@@ -8,7 +8,7 @@ export const login = async (email: string, password: string): Promise<User> => {
         nom: 'Bernard',
         prenom: 'Jean',
         email,
-        role: 'agent',
+        role: password === 'admin' ? 'respo' : 'agent',
         actif: true,
         dateCreation: new Date(),
         derniereConnexion: new Date()
