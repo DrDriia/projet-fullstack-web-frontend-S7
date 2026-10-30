@@ -3,9 +3,9 @@ import { Link, useParams } from 'react-router-dom'
 import { useApi } from '../../utils/hooks/useApi'
 import type { Equipement } from '../../utils/types/equipement'
 import { IncidentForm } from '../forms/IncidentForm';
-import Field from '../common/Field'
 import { Popover } from '../common/Popover'
 import { IncidentTable } from '../tables/IncidentTable'
+import { EquipmentFields } from '../fields/EquipmentFields';
 
 export function EquipementDetailsPage() {
   const { id } = useParams()
@@ -37,18 +37,7 @@ export function EquipementDetailsPage() {
                     </div>
                     <div className="details-badge">{equipement.etat}</div>
                 </div>
-                <div className="details-fields">
-                    <Field title="Identifiant">{equipement.id}</Field>
-                    <Field title="Type">{equipement.type.libelle}</Field>
-                    <Field title="Station">{equipement.station.nom} ({equipement.station.ville})</Field>
-                    <Field title="Mise en service">
-                        {new Date(equipement.dateMiseService).toLocaleDateString('fr-FR')}
-                    </Field>
-                    <Field title="Création">
-                        {new Date(equipement.dateCreation).toLocaleDateString('fr-FR')}
-                    </Field>
-                    <Field title="Description" wide>{equipement.description}</Field>
-                </div>
+                <EquipmentFields equipment={equipement} />
                 <div className="incidents-header">
                     <h2>Incidents liés à l'équipement</h2>
                     <Popover
