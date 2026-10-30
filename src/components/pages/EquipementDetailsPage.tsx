@@ -51,31 +51,22 @@ export function EquipementDetailsPage() {
                 </div>
                 <div className="incidents-header">
                     <h2>Incidents liés à l'équipement</h2>
-                    <button
-                        type="button"
-                        className="button-primary"
-                        aria-haspopup="dialog"
-                        aria-expanded={showPopover}
-                        aria-controls="nouvel-incident-popover"
-                        onClick={() => setShowPopover(true)}
+                    <Popover
+                        id="nouvel-incident-popover"
+                        title="Nouvel incident"
+                        triggerLabel="Déclarer un incident"
+                        showPopover={showPopover}
+                        setShowPopover={setShowPopover}
                     >
-                        Déclarer un incident
-                    </button>
+                        <IncidentForm
+                            equipement={equipement}
+                            onCreated={() => {
+                                setRefreshIncidents(v => !v)
+                                setShowPopover(false)
+                            }}
+                        />
+                    </Popover>
                 </div>
-                <Popover
-                    id="nouvel-incident-popover"
-                    title="Nouvel incident"
-                    isOpen={showPopover}
-                    onClose={() => setShowPopover(false)}
-                >
-                            <IncidentForm
-                                equipement={equipement}
-                                onCreated={() => {
-                                    setRefreshIncidents(v => !v)
-                                    setShowPopover(false)
-                                }}
-                            />
-                </Popover>
                 <IncidentTable refreshIncidents={refreshIncidents} equipmentId={equipement.id} />
             </>
         )}
