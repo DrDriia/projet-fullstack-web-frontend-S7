@@ -4,11 +4,12 @@ import { useApi } from '../../utils/hooks/useApi'
 import type { Equipement } from '../../utils/types/equipement'
 import { IncidentForm } from '../forms/IncidentForm';
 import Field from '../common/Field'
+import { Popover } from '../common/Popover'
 import { IncidentTable } from '../tables/IncidentTable'
 
 export function EquipementDetailsPage() {
   const { id } = useParams()
-  const { getEquipementById, getIncidentByEquipement } = useApi()
+  const { getEquipementById } = useApi()
   const [equipement, setEquipement] = useState<Equipement>()
   const [showPopover, setShowPopover] = useState(false)
   const [refreshIncidents, setRefreshIncidents] = useState(false)
@@ -21,7 +22,7 @@ export function EquipementDetailsPage() {
     }
     fetchEquipement();
 
-    }, [id, getEquipementById, getIncidentByEquipement, refreshIncidents])
+    }, [id, getEquipementById])
 
   return (
         <section className="details-page">
@@ -61,28 +62,12 @@ export function EquipementDetailsPage() {
                         Déclarer un incident
                     </button>
                 </div>
-                {
-                    showPopover &&
-                        <div className="incident-popover-backdrop" onClick={() => setShowPopover(false)}>
-                            <div
-                                id="nouvel-incident-popover"
-                                className="incident-popover"
-                                role="dialog"
-                                aria-modal="true"
-                                aria-labelledby="incident-popover-title"
-                                onClick={(event) => event.stopPropagation()}
-                            >
-                            <div className="incident-popover-header">
-                                <div id="incident-popover-title" className="incident-popover-title">Nouvel incident</div>
-                                <button
-                                    type="button"
-                                    className="incident-popover-close"
-                                    onClick={() => setShowPopover(false)}
-                                    aria-label="Fermer"
-                                >
-                                    x
-                                </button>
-                            </div>
+                <Popover
+                    id="nouvel-incident-popover"
+                    title="Nouvel incident"
+                    isOpen={showPopover}
+                    onClose={() => setShowPopover(false)}
+                >
                             <IncidentForm
                                 equipement={equipement}
                                 onCreated={() => {
@@ -90,9 +75,7 @@ export function EquipementDetailsPage() {
                                     setShowPopover(false)
                                 }}
                             />
-                            </div>
-                        </div>
-                }
+                </Popover>
                 <IncidentTable refreshIncidents={refreshIncidents} equipmentId={equipement.id} />
             </>
         )}
