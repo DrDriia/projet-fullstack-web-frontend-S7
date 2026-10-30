@@ -1,6 +1,11 @@
 import type { Incident, FormIncident } from '../types';
 import { incidents } from './fakeIncident';
 
+export const getIncidentById = async (incidentId: number): Promise<Incident | undefined> => {
+    // TODO : implement
+    return incidents.find(incident => incident.id === incidentId);
+};
+
 export const getIncidentByEquipement = async (equipmentId: number): Promise<Incident[]> => {
     console.log(`Fetching incident for equipment with ID: ${equipmentId}`);
     // TODO : implement
