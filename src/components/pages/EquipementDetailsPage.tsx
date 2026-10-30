@@ -1,30 +1,23 @@
 import { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useApi } from '../../utils/hooks/useApi'
 import type { Equipement } from '../../utils/types/equipement'
-import type { Incident } from '../../utils/types';
-import { IncidentForm } from '../common/IncidentForm';
+import { IncidentForm } from '../forms/IncidentForm';
 import Field from '../common/Field'
+import { IncidentTable } from '../tables/IncidentTable'
 
 export function EquipementDetailsPage() {
   const { id } = useParams()
   const { getEquipementById, getIncidentByEquipement } = useApi()
   const [equipement, setEquipement] = useState<Equipement>()
-  const [incidents, setIncidents] = useState<Incident[]>([])
   const [showPopover, setShowPopover] = useState(false)
   const [refreshIncidents, setRefreshIncidents] = useState(false)
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchEquipement() {
         const equipmentId = Number(id)
         const equipement = await getEquipementById(equipmentId)
         setEquipement(equipement);
-
-        if (equipement) {
-            const incidents = await getIncidentByEquipement(equipement.id)
-            setIncidents(incidents)
-        }
     }
     fetchEquipement();
 
@@ -100,31 +93,7 @@ export function EquipementDetailsPage() {
                             </div>
                         </div>
                 }
-                {incidents.length === 0 ? (
-                    <p>Aucun incident trouvé pour cet équipement.</p>
-                ) : <div className="data-table-scroll" role="region" aria-label="Equipements de la station" tabIndex={0}>
-                    <table className="data-table">
-                            <caption>{incidents.length} incident(s)</caption>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Titre</th>
-                                    <th scope="col">Priorité</th>
-                                    <th scope="col">Statut</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {incidents.map((incident) => (
-                                    <tr
-                                        onClick={() => navigate(`/incident/${incident.id}`)}
-                                    >
-                                        <td>{incident.titre}</td>
-                                        <td>{incident.priorite}</td>
-                                        <td>{incident.statut}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>}
+                <IncidentTable refreshIncidents={refreshIncidents} equipmentId={equipement.id} />
             </>
         )}
     </section>
