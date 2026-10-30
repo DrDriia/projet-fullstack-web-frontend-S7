@@ -1,4 +1,4 @@
-type Role = 'respo' | 'agent';
+export type Role = 'respo' | 'agent';
 
 export interface User {
     id: number;
