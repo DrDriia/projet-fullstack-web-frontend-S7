@@ -31,23 +31,45 @@ export function EquipementDetailsPage() {
 
   return (
     <section className="equipment-details">
-      <Link to="/">Retour aux stations</Link>
+      <Link className="equipment-back" to="/">← Retour aux stations</Link>
       {!equipement ? <p>Equipement introuvable</p>
         : (
             <>
+                <div className="equipment-header">
+                    <div>
+                        <div className="equipment-reference">{equipement.reference}</div>
                 <h2>{equipement.libelle}</h2>
-                <div className="equipment-attributes">
-                    <div>Identifiant</div><div>{equipement.id}</div>
-                    <div>Référence</div><div>{equipement.reference}</div>
-                    <div>Station</div><div>{equipement.station.nom} ({equipement.station.ville})</div>
-                    <div>Description</div><div>{equipement.description}</div>
-                    <div>Type</div><div>{equipement.type.libelle}</div>
-                    <div>Etat</div><div>{equipement.etat}</div>
-                    <div>Mise en service</div><div>{new Date(equipement.dateMiseService).toLocaleDateString('fr-FR')}</div>
-                    <div>Création</div><div>{new Date(equipement.dateCreation).toLocaleDateString('fr-FR')}</div>
+                    </div>
+                    <div className="equipment-state">{equipement.etat}</div>
                 </div>
+                <div className="equipment-attributes">
+                    <div className="equipment-attribute">
+                        <div className="equipment-attribute-label">Identifiant</div>
+                        <div className="equipment-attribute-value">{equipement.id}</div>
+                    </div>
+                    <div className="equipment-attribute">
+                        <div className="equipment-attribute-label">Type</div>
+                        <div className="equipment-attribute-value">{equipement.type.libelle}</div>
+                    </div>
+                    <div className="equipment-attribute">
+                        <div className="equipment-attribute-label">Station</div>
+                        <div className="equipment-attribute-value">{equipement.station.nom} ({equipement.station.ville})</div>
+                    </div>
+                    <div className="equipment-attribute">
+                        <div className="equipment-attribute-label">Mise en service</div>
+                        <div className="equipment-attribute-value">{new Date(equipement.dateMiseService).toLocaleDateString('fr-FR')}</div>
+                    </div>
+                    <div className="equipment-attribute">
+                        <div className="equipment-attribute-label">Création</div>
+                        <div className="equipment-attribute-value">{new Date(equipement.dateCreation).toLocaleDateString('fr-FR')}</div>
+                    </div>
+                    <div className="equipment-attribute equipment-attribute-wide">
+                        <div className="equipment-attribute-label">Description</div>
+                        <div className="equipment-attribute-value">{equipement.description}</div>
+                    </div>
+                </div>
+                <div className="incidents-header">
                 <h2>Incidents liés à l'équipement</h2>
-                <div className="incident-actions">
                     <button
                         type="button"
                         className="button-primary"

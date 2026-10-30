@@ -1,16 +1,9 @@
-.incident-actions,
-.form-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.button-primary,
-.button-secondary {
+.button-primary {
   min-height: 44px;
   padding: 10px 16px;
   border: 1px solid var(--accent-border);
   border-radius: 6px;
+  background: var(--accent-bg);
   color: var(--text-h);
   font: inherit;
   font-size: 15px;
@@ -18,22 +11,11 @@
   cursor: pointer;
 }
 
-.button-primary {
-  background: var(--accent-bg);
-}
-
-.button-secondary {
-  border-color: var(--border);
-  background: var(--bg);
-}
-
-.button-primary:hover:not(:disabled),
-.button-secondary:hover:not(:disabled) {
+.button-primary:hover {
   border-color: var(--accent);
 }
 
-.button-primary:focus-visible,
-.button-secondary:focus-visible {
+.button-primary:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
