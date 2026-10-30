@@ -6,7 +6,7 @@ import { formatDuration } from '../../utils/duration'
 
 export function IncidentDetailsPage() {
     const { id } = useParams()
-    const { getIncidentById, getEvaluationByIncident } = useApi()
+    const { getIncidentById } = useApi()
     const navigate = useNavigate()
     const [incident, setIncident] = useState<Incident>()
 
@@ -18,7 +18,7 @@ export function IncidentDetailsPage() {
     }
     fetchIncident();
 
-    }, [id, getIncidentById, getEvaluationByIncident])
+    }, [id, getIncidentById])
 
     return (
         <section className="equipment-details">
