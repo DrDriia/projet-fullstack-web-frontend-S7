@@ -127,7 +127,9 @@ export function EquipementDetailsPage() {
                             </thead>
                             <tbody>
                                 {incidents.map((incident) => (
-                                    <tr key={incident.id}>
+                                    <tr
+                                        onClick={() => navigate(`/incident/${incident.id}`)}
+                                    >
                                         <td>{incident.titre}</td>
                                         <td>{incident.priorite}</td>
                                         <td>{incident.statut}</td>
