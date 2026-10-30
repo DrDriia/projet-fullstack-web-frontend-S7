@@ -27,7 +27,7 @@ export function EquipementDetailsPage() {
     }
     fetchEquipement();
 
-  }, [id, getEquipementById, navigate, getIncidentByEquipement, refreshIncidents])
+    }, [id, getEquipementById, getIncidentByEquipement, refreshIncidents])
 
   return (
     <section className="equipment-details">
