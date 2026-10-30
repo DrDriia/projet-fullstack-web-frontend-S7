@@ -16,6 +16,21 @@
   text-decoration: underline;
 }
 
+button.details-back {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  font: inherit;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+button.details-back:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 .details-header {
   display: flex;
   align-items: flex-end;
