@@ -10,7 +10,7 @@ export function EquipementDetailsPage() {
   const { getEquipementById, getIncidentByEquipement } = useApi()
   const [equipement, setEquipement] = useState<Equipement>()
   const [incidents, setIncidents] = useState<Incident[]>([])
-  const [showForm, setShowForm] = useState(false)
+  const [showPopover, setShowPopover] = useState(false)
   const [refreshIncidents, setRefreshIncidents] = useState(false)
   const navigate = useNavigate();
 
@@ -38,7 +38,7 @@ export function EquipementDetailsPage() {
                 <div className="equipment-header">
                     <div>
                         <div className="equipment-reference">{equipement.reference}</div>
-                <h2>{equipement.libelle}</h2>
+                        <h2>{equipement.libelle}</h2>
                     </div>
                     <div className="equipment-state">{equipement.etat}</div>
                 </div>
@@ -69,23 +69,50 @@ export function EquipementDetailsPage() {
                     </div>
                 </div>
                 <div className="incidents-header">
-                <h2>Incidents liés à l'équipement</h2>
+                    <h2>Incidents liés à l'équipement</h2>
                     <button
                         type="button"
                         className="button-primary"
-                        aria-expanded={showForm}
-                        aria-controls="nouvel-incident"
-                        onClick={() => setShowForm(v => !v)}
+                        aria-haspopup="dialog"
+                        aria-expanded={showPopover}
+                        aria-controls="nouvel-incident-popover"
+                        onClick={() => setShowPopover(true)}
                     >
-                        {showForm ? 'Fermer le formulaire' : 'Déclarer un incident'}
+                        Déclarer un incident
                     </button>
                 </div>
-                {showForm && (
-                    <IncidentForm
-                        equipement={equipement}
-                        onCreated={() => setRefreshIncidents(v => !v)}
-                    />
-                )}
+                {
+                    showPopover &&
+                        <div className="incident-popover-backdrop" onClick={() => setShowPopover(false)}>
+                            <div
+                                id="nouvel-incident-popover"
+                                className="incident-popover"
+                                role="dialog"
+                                aria-modal="true"
+                                aria-labelledby="incident-popover-title"
+                                onClick={(event) => event.stopPropagation()}
+                            >
+                            <div className="incident-popover-header">
+                                <div id="incident-popover-title" className="incident-popover-title">Nouvel incident</div>
+                                <button
+                                    type="button"
+                                    className="incident-popover-close"
+                                    onClick={() => setShowPopover(false)}
+                                    aria-label="Fermer"
+                                >
+                                    x
+                                </button>
+                            </div>
+                            <IncidentForm
+                                equipement={equipement}
+                                onCreated={() => {
+                                    setRefreshIncidents(v => !v)
+                                    setShowPopover(false)
+                                }}
+                            />
+                            </div>
+                        </div>
+                }
                 {incidents.length === 0 ? (
                     <p>Aucun incident trouvé pour cet équipement.</p>
                 ) : <div className="equipment-table-scroll" role="region" aria-label="Equipements de la station" tabIndex={0}>
