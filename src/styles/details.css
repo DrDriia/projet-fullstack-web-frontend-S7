@@ -1,0 +1,128 @@
+.details-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+  letter-spacing: 0;
+}
+
+.details-back {
+  align-self: flex-start;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.details-back:hover {
+  text-decoration: underline;
+}
+
+.details-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.details-header h2 {
+  margin: 4px 0 0;
+  font-size: 30px;
+}
+
+.details-reference {
+  color: var(--text);
+  font-size: 14px;
+  font-family: ui-monospace, Consolas, monospace;
+}
+
+.details-badge {
+  padding: 6px 14px;
+  border: 1px solid var(--accent-border);
+  border-radius: 999px;
+  background: var(--accent-bg);
+  color: var(--text-h);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.details-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.details-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--social-bg);
+}
+
+.details-field--wide {
+  grid-column: 1 / -1;
+}
+
+.details-field-label {
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.details-field-value {
+  color: var(--text-h);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.data-table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  margin-top: 16px;
+}
+
+.data-table-scroll:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  text-align: left;
+}
+
+.data-table caption {
+  padding-bottom: 12px;
+  text-align: left;
+}
+
+.data-table th,
+.data-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.data-table thead {
+  background: var(--accent-bg);
+  color: var(--text-h);
+}
+
+.data-table tbody th {
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.data-table tbody tr:hover {
+  background: var(--social-bg);
+  cursor: pointer;
+}

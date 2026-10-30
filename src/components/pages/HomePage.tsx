@@ -55,8 +55,8 @@ export function HomePage() {
           <h2>Equipements</h2>
           {equipements.length === 0 ? <p>Aucun équipement dans cette station.</p>
             : (
-              <div className="equipment-table-scroll" role="region" aria-label="Equipements de la station" tabIndex={0}>
-                <table className="equipment-table">
+              <div className="data-table-scroll" role="region" aria-label="Equipements de la station" tabIndex={0}>
+                <table className="data-table">
                   <caption>{equipements.length} équipement(s)</caption>
                   <thead>
                     <tr>

@@ -30,42 +30,42 @@ export function EquipementDetailsPage() {
     }, [id, getEquipementById, getIncidentByEquipement, refreshIncidents])
 
   return (
-    <section className="equipment-details">
-      <Link className="equipment-back" to="/">← Retour aux stations</Link>
+        <section className="details-page">
+            <Link className="details-back" to="/">← Retour aux stations</Link>
       {!equipement ? <p>Equipement introuvable</p>
         : (
             <>
-                <div className="equipment-header">
+                <div className="details-header">
                     <div>
-                        <div className="equipment-reference">{equipement.reference}</div>
+                        <div className="details-reference">{equipement.reference}</div>
                         <h2>{equipement.libelle}</h2>
                     </div>
-                    <div className="equipment-state">{equipement.etat}</div>
+                    <div className="details-badge">{equipement.etat}</div>
                 </div>
-                <div className="equipment-attributes">
-                    <div className="equipment-attribute">
-                        <div className="equipment-attribute-label">Identifiant</div>
-                        <div className="equipment-attribute-value">{equipement.id}</div>
+                <div className="details-fields">
+                    <div className="details-field">
+                        <div className="details-field-label">Identifiant</div>
+                        <div className="details-field-value">{equipement.id}</div>
                     </div>
-                    <div className="equipment-attribute">
-                        <div className="equipment-attribute-label">Type</div>
-                        <div className="equipment-attribute-value">{equipement.type.libelle}</div>
+                    <div className="details-field">
+                        <div className="details-field-label">Type</div>
+                        <div className="details-field-value">{equipement.type.libelle}</div>
                     </div>
-                    <div className="equipment-attribute">
-                        <div className="equipment-attribute-label">Station</div>
-                        <div className="equipment-attribute-value">{equipement.station.nom} ({equipement.station.ville})</div>
+                    <div className="details-field">
+                        <div className="details-field-label">Station</div>
+                        <div className="details-field-value">{equipement.station.nom} ({equipement.station.ville})</div>
                     </div>
-                    <div className="equipment-attribute">
-                        <div className="equipment-attribute-label">Mise en service</div>
-                        <div className="equipment-attribute-value">{new Date(equipement.dateMiseService).toLocaleDateString('fr-FR')}</div>
+                    <div className="details-field">
+                        <div className="details-field-label">Mise en service</div>
+                        <div className="details-field-value">{new Date(equipement.dateMiseService).toLocaleDateString('fr-FR')}</div>
                     </div>
-                    <div className="equipment-attribute">
-                        <div className="equipment-attribute-label">Création</div>
-                        <div className="equipment-attribute-value">{new Date(equipement.dateCreation).toLocaleDateString('fr-FR')}</div>
+                    <div className="details-field">
+                        <div className="details-field-label">Création</div>
+                        <div className="details-field-value">{new Date(equipement.dateCreation).toLocaleDateString('fr-FR')}</div>
                     </div>
-                    <div className="equipment-attribute equipment-attribute-wide">
-                        <div className="equipment-attribute-label">Description</div>
-                        <div className="equipment-attribute-value">{equipement.description}</div>
+                    <div className="details-field details-field--wide">
+                        <div className="details-field-label">Description</div>
+                        <div className="details-field-value">{equipement.description}</div>
                     </div>
                 </div>
                 <div className="incidents-header">
@@ -115,8 +115,8 @@ export function EquipementDetailsPage() {
                 }
                 {incidents.length === 0 ? (
                     <p>Aucun incident trouvé pour cet équipement.</p>
-                ) : <div className="equipment-table-scroll" role="region" aria-label="Equipements de la station" tabIndex={0}>
-                        <table className="equipment-table">
+                ) : <div className="data-table-scroll" role="region" aria-label="Equipements de la station" tabIndex={0}>
+                    <table className="data-table">
                             <caption>{incidents.length} incident(s)</caption>
                             <thead>
                                 <tr>

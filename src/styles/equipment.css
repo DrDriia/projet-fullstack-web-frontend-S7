@@ -1,5 +1,4 @@
-.station-equipment,
-.equipment-details {
+.station-equipment {
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -33,126 +32,9 @@
   text-overflow: ellipsis;
 }
 
-.station-picker select:focus-visible,
-.equipment-table-scroll:focus-visible {
+.station-picker select:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-}
-
-.equipment-table-scroll {
-  max-width: 100%;
-  overflow-x: auto;
-  margin-top: 16px;
-}
-
-.equipment-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 15px;
-  text-align: left;
-}
-
-.equipment-table caption {
-  padding-bottom: 12px;
-  text-align: left;
-}
-
-.equipment-table th,
-.equipment-table td {
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--border);
-  vertical-align: top;
-}
-
-.equipment-table thead {
-  background: var(--accent-bg);
-  color: var(--text-h);
-}
-
-.equipment-table tbody th {
-  white-space: nowrap;
-  font-weight: 500;
-}
-
-.equipment-table tbody tr:hover {
-  background: var(--social-bg);
-  cursor: pointer;
-}
-
-.equipment-back {
-  align-self: flex-start;
-  font-size: 15px;
-  text-decoration: none;
-}
-
-.equipment-back:hover {
-  text-decoration: underline;
-}
-
-.equipment-header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px 24px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border);
-}
-
-.equipment-header h2 {
-  margin: 4px 0 0;
-  font-size: 30px;
-}
-
-.equipment-reference {
-  color: var(--text);
-  font-size: 14px;
-  font-family: ui-monospace, Consolas, monospace;
-}
-
-.equipment-state {
-  padding: 6px 14px;
-  border: 1px solid var(--accent-border);
-  border-radius: 999px;
-  background: var(--accent-bg);
-  color: var(--text-h);
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.equipment-attributes {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 12px;
-}
-
-.equipment-attribute {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 14px 16px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--social-bg);
-  min-width: 0;
-}
-
-.equipment-attribute-wide {
-  grid-column: 1 / -1;
-}
-
-.equipment-attribute-label {
-  color: var(--text);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.equipment-attribute-value {
-  color: var(--text-h);
-  font-size: 16px;
-  line-height: 1.5;
 }
 
 .incidents-header {

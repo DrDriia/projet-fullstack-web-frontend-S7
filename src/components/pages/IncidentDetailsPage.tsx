@@ -21,47 +21,47 @@ export function IncidentDetailsPage() {
     }, [id, getIncidentById])
 
     return (
-        <section className="equipment-details">
-            <button className="equipment-back" onClick={() => navigate(-1)}>← Retour à l'équipement</button>
+        <section className="details-page">
+            <button className="details-back" onClick={() => navigate(-1)}>← Retour à l'équipement</button>
             {!incident ? <p>Incident introuvable</p>
             : <>
-                <div className="equipment-header">
+                <div className="details-header">
                     <div>
-                    <div className="equipment-reference">Incident #{incident.id}</div>
+                    <div className="details-reference">Incident #{incident.id}</div>
                     <h2>{incident.titre}</h2>
                     </div>
-                    <div className="equipment-state">{incident.statut}</div>
+                    <div className="details-badge">{incident.statut}</div>
                 </div>
-                <div className="equipment-attributes">
-                    <div className="equipment-attribute">
-                    <div className="equipment-attribute-label">Priorité</div>
-                    <div className="equipment-attribute-value">{incident.priorite}</div>
+                <div className="details-fields">
+                    <div className="details-field">
+                    <div className="details-field-label">Priorité</div>
+                    <div className="details-field-value">{incident.priorite}</div>
                     </div>
-                    <div className="equipment-attribute">
-                    <div className="equipment-attribute-label">Durée d'ouverture</div>
-                    <div className="equipment-attribute-value">{formatDuration(incident.dateOuverture, incident.dateResolution)}</div>
+                    <div className="details-field">
+                    <div className="details-field-label">Durée d'ouverture</div>
+                    <div className="details-field-value">{formatDuration(incident.dateOuverture, incident.dateResolution)}</div>
                     </div>
-                    <div className="equipment-attribute">
-                    <div className="equipment-attribute-label">Prestataire</div>
-                    <div className="equipment-attribute-value">
+                    <div className="details-field">
+                    <div className="details-field-label">Prestataire</div>
+                    <div className="details-field-value">
                         {incident.prestataire?.nom ?? 'Aucun prestataire affecté'}
                     </div>
                     </div>
-                    <div className="equipment-attribute">
-                    <div className="equipment-attribute-label">Équipement</div>
-                    <Link className="equipment-attribute-value" to={`/equipement/${incident.equipement.id}`}>
+                    <div className="details-field">
+                    <div className="details-field-label">Équipement</div>
+                    <Link className="details-field-value" to={`/equipement/${incident.equipement.id}`}>
                         {incident.equipement.libelle} ({incident.equipement.reference})
                     </Link>
                     </div>
-                    <div className="equipment-attribute">
-                    <div className="equipment-attribute-label">Station</div>
-                    <div className="equipment-attribute-value">
+                    <div className="details-field">
+                    <div className="details-field-label">Station</div>
+                    <div className="details-field-value">
                         {incident.equipement.station.nom} ({incident.equipement.station.ville})
                     </div>
                     </div>
-                    <div className="equipment-attribute equipment-attribute-wide">
-                    <div className="equipment-attribute-label">Description</div>
-                    <div className="equipment-attribute-value">{incident.description}</div>
+                    <div className="details-field details-field--wide">
+                    <div className="details-field-label">Description</div>
+                    <div className="details-field-value">{incident.description}</div>
                     </div>
                 </div>
                 <h2>Évaluation</h2>
