@@ -1,24 +1,41 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { useApi } from '../../utils/hooks/useApi'
-import type { Incident } from '../../utils/types'
+import { useUser } from '../../utils/context/useUser'
+import type { Incident, Prestataire } from '../../utils/types'
 import { formatDuration } from '../../utils/duration'
+import { canAffectIncident } from '../../utils/permissions'
 
 export function IncidentDetailsPage() {
     const { id } = useParams()
-    const { getIncidentById } = useApi()
+    const { getIncidentById, getAllPrestataires, affecterPrestataire } = useApi()
+    const { user } = useUser()
     const navigate = useNavigate()
     const [incident, setIncident] = useState<Incident>()
+    const [prestataires, setPrestataires] = useState<Prestataire[]>([])
+    const [selectedPrestataireId, setSelectedPrestataireId] = useState('')
 
     useEffect(() => {
     async function fetchIncident() {
         const incidentId = Number(id)
         const currentIncident = await getIncidentById(incidentId)
         setIncident(currentIncident);
+        if (canAffectIncident(currentIncident, user?.role)) {
+            setPrestataires(await getAllPrestataires())
+        }
     }
     fetchIncident();
 
-    }, [id, getIncidentById])
+    }, [id, getIncidentById, getAllPrestataires, user?.role])
+
+    async function handleAssignment(event: React.SyntheticEvent<HTMLFormElement>) {
+        event.preventDefault()
+        if (!incident || !canAffectIncident(incident, user?.role)) return
+
+        const updatedIncident = await affecterPrestataire(incident.id, Number(selectedPrestataireId))
+        setIncident(updatedIncident)
+        setSelectedPrestataireId('')
+    }
 
     return (
         <section className="details-page">
@@ -64,6 +81,34 @@ export function IncidentDetailsPage() {
                     <div className="details-field-value">{incident.description}</div>
                     </div>
                 </div>
+                {canAffectIncident(incident, user?.role) && (
+                    <div className="details-field details-field--wide">
+                        <div className="details-field-label">
+                            {incident.prestataire ? 'Réaffecter' : 'Affecter'}
+                        </div>
+                        <form className="incident-assignment" onSubmit={handleAssignment}>
+                            <div className="incident-field">
+                                <label htmlFor="incident-prestataire">Prestataire actif</label>
+                                <select
+                                    id="incident-prestataire"
+                                    value={selectedPrestataireId}
+                                    onChange={(event) => setSelectedPrestataireId(event.target.value)}
+                                    required
+                                >
+                                    <option value="">Choisir un prestataire</option>
+                                    {prestataires.map(prestataire => (
+                                        <option key={prestataire.id} value={prestataire.id}>
+                                            {prestataire.nom} - {prestataire.specialite}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <button className="incident-submit" type="submit">
+                                {incident.prestataire ? 'Réaffecter' : 'Affecter'}
+                            </button>
+                        </form>
+                    </div>
+                )}
                 <h2>Évaluation</h2>
                 {incident.evaluation ? (
                     <div className="details-fields">

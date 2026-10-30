@@ -103,7 +103,8 @@
   font-weight: 600;
 }
 
-.incident-field > input {
+.incident-field > input,
+.incident-field > select {
   width: 100%;
   min-height: 44px;
   box-sizing: border-box;
@@ -116,11 +117,13 @@
   font-size: 16px;
 }
 
-.incident-field > input:hover {
+.incident-field > input:hover,
+.incident-field > select:hover {
   border-color: var(--accent-border);
 }
 
-.incident-field > input:focus-visible {
+.incident-field > input:focus-visible,
+.incident-field > select:focus-visible {
   border-color: var(--accent);
   outline: 2px solid var(--accent-border);
   outline-offset: 2px;
@@ -130,6 +133,18 @@
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
+}
+
+.incident-assignment {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.incident-assignment .incident-field {
+  flex: 1 1 260px;
 }
 
 .incident-radio {
