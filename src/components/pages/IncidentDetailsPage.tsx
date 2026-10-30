@@ -65,7 +65,30 @@ export function IncidentDetailsPage() {
                     </div>
                 </div>
                 <h2>Évaluation</h2>
-                <p>TODO : implémenter les evals</p>
+                {incident.evaluation ? (
+                    <div className="details-fields">
+                        <div className="details-field">
+                            <div className="details-field-label">Note</div>
+                            <div className="details-field-value">{incident.evaluation.note}</div>
+                        </div>
+                        <div className="details-field">
+                            <div className="details-field-label">Date</div>
+                            <div className="details-field-value">
+                                {incident.evaluation.dateEvaluation.toLocaleDateString('fr-FR')}
+                            </div>
+                        </div>
+                        {incident.evaluation.commentaire && (
+                            <div className="details-field details-field--wide">
+                                <div className="details-field-label">Commentaire</div>
+                                <div className="details-field-value">{incident.evaluation.commentaire}</div>
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    <div className="details-field">
+                        <div className="details-field-value">Aucune évaluation enregistrée.</div>
+                    </div>
+                )}
             </>}
         </section>
     )
