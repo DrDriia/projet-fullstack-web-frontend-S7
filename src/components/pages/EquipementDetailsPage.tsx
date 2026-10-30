@@ -4,6 +4,7 @@ import { useApi } from '../../utils/hooks/useApi'
 import type { Equipement } from '../../utils/types/equipement'
 import type { Incident } from '../../utils/types';
 import { IncidentForm } from '../common/IncidentForm';
+import Field from '../common/Field'
 
 export function EquipementDetailsPage() {
   const { id } = useParams()
@@ -43,30 +44,16 @@ export function EquipementDetailsPage() {
                     <div className="details-badge">{equipement.etat}</div>
                 </div>
                 <div className="details-fields">
-                    <div className="details-field">
-                        <div className="details-field-label">Identifiant</div>
-                        <div className="details-field-value">{equipement.id}</div>
-                    </div>
-                    <div className="details-field">
-                        <div className="details-field-label">Type</div>
-                        <div className="details-field-value">{equipement.type.libelle}</div>
-                    </div>
-                    <div className="details-field">
-                        <div className="details-field-label">Station</div>
-                        <div className="details-field-value">{equipement.station.nom} ({equipement.station.ville})</div>
-                    </div>
-                    <div className="details-field">
-                        <div className="details-field-label">Mise en service</div>
-                        <div className="details-field-value">{new Date(equipement.dateMiseService).toLocaleDateString('fr-FR')}</div>
-                    </div>
-                    <div className="details-field">
-                        <div className="details-field-label">Création</div>
-                        <div className="details-field-value">{new Date(equipement.dateCreation).toLocaleDateString('fr-FR')}</div>
-                    </div>
-                    <div className="details-field details-field--wide">
-                        <div className="details-field-label">Description</div>
-                        <div className="details-field-value">{equipement.description}</div>
-                    </div>
+                    <Field title="Identifiant">{equipement.id}</Field>
+                    <Field title="Type">{equipement.type.libelle}</Field>
+                    <Field title="Station">{equipement.station.nom} ({equipement.station.ville})</Field>
+                    <Field title="Mise en service">
+                        {new Date(equipement.dateMiseService).toLocaleDateString('fr-FR')}
+                    </Field>
+                    <Field title="Création">
+                        {new Date(equipement.dateCreation).toLocaleDateString('fr-FR')}
+                    </Field>
+                    <Field title="Description" wide>{equipement.description}</Field>
                 </div>
                 <div className="incidents-header">
                     <h2>Incidents liés à l'équipement</h2>

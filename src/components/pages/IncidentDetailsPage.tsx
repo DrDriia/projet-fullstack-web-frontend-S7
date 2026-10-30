@@ -5,6 +5,7 @@ import { useUser } from '../../utils/context/useUser'
 import type { Incident, Prestataire } from '../../utils/types'
 import { formatDuration } from '../../utils/duration'
 import { canAffectIncident } from '../../utils/permissions'
+import Field from '../common/Field'
 
 export function IncidentDetailsPage() {
     const { id } = useParams()
@@ -50,42 +51,25 @@ export function IncidentDetailsPage() {
                     <div className="details-badge">{incident.statut}</div>
                 </div>
                 <div className="details-fields">
-                    <div className="details-field">
-                    <div className="details-field-label">Priorité</div>
-                    <div className="details-field-value">{incident.priorite}</div>
-                    </div>
-                    <div className="details-field">
-                    <div className="details-field-label">Durée d'ouverture</div>
-                    <div className="details-field-value">{formatDuration(incident.dateOuverture, incident.dateResolution)}</div>
-                    </div>
-                    <div className="details-field">
-                    <div className="details-field-label">Prestataire</div>
-                    <div className="details-field-value">
+                    <Field title="Priorité">{incident.priorite}</Field>
+                    <Field title="Durée d'ouverture">
+                        {formatDuration(incident.dateOuverture, incident.dateResolution)}
+                    </Field>
+                    <Field title="Prestataire">
                         {incident.prestataire?.nom ?? 'Aucun prestataire affecté'}
-                    </div>
-                    </div>
-                    <div className="details-field">
-                    <div className="details-field-label">Équipement</div>
-                    <Link className="details-field-value" to={`/equipement/${incident.equipement.id}`}>
-                        {incident.equipement.libelle} ({incident.equipement.reference})
-                    </Link>
-                    </div>
-                    <div className="details-field">
-                    <div className="details-field-label">Station</div>
-                    <div className="details-field-value">
+                    </Field>
+                    <Field title="Équipement">
+                        <Link className="details-field-value" to={`/equipement/${incident.equipement.id}`}>
+                            {incident.equipement.libelle} ({incident.equipement.reference})
+                        </Link>
+                    </Field>
+                    <Field title="Station">
                         {incident.equipement.station.nom} ({incident.equipement.station.ville})
-                    </div>
-                    </div>
-                    <div className="details-field details-field--wide">
-                    <div className="details-field-label">Description</div>
-                    <div className="details-field-value">{incident.description}</div>
-                    </div>
+                    </Field>
+                    <Field title="Description" wide>{incident.description}</Field>
                 </div>
                 {canAffectIncident(incident, user?.role) && (
-                    <div className="details-field details-field--wide">
-                        <div className="details-field-label">
-                            {incident.prestataire ? 'Réaffecter' : 'Affecter'}
-                        </div>
+                    <Field title={incident.prestataire ? 'Réaffecter' : 'Affecter'} wide>
                         <form className="incident-assignment" onSubmit={handleAssignment}>
                             <div className="incident-field">
                                 <label htmlFor="incident-prestataire">Prestataire actif</label>
@@ -107,32 +91,21 @@ export function IncidentDetailsPage() {
                                 {incident.prestataire ? 'Réaffecter' : 'Affecter'}
                             </button>
                         </form>
-                    </div>
+                    </Field>
                 )}
                 <h2>Évaluation</h2>
                 {incident.evaluation ? (
                     <div className="details-fields">
-                        <div className="details-field">
-                            <div className="details-field-label">Note</div>
-                            <div className="details-field-value">{incident.evaluation.note}</div>
-                        </div>
-                        <div className="details-field">
-                            <div className="details-field-label">Date</div>
-                            <div className="details-field-value">
-                                {incident.evaluation.dateEvaluation.toLocaleDateString('fr-FR')}
-                            </div>
-                        </div>
+                        <Field title="Note">{incident.evaluation.note}</Field>
+                        <Field title="Date">
+                            {incident.evaluation.dateEvaluation.toLocaleDateString('fr-FR')}
+                        </Field>
                         {incident.evaluation.commentaire && (
-                            <div className="details-field details-field--wide">
-                                <div className="details-field-label">Commentaire</div>
-                                <div className="details-field-value">{incident.evaluation.commentaire}</div>
-                            </div>
+                            <Field title="Commentaire" wide>{incident.evaluation.commentaire}</Field>
                         )}
                     </div>
                 ) : (
-                    <div className="details-field">
-                        <div className="details-field-value">Aucune évaluation enregistrée.</div>
-                    </div>
+                    <Field title="Évaluation">Aucune évaluation enregistrée.</Field>
                 )}
             </>}
         </section>
