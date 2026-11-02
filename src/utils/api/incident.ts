@@ -36,6 +36,7 @@ export const resolveIncident = async (incidentId: number): Promise<Incident> => 
     if (incident.statut !== 'AFFECTE') throw new Error("L'incident doit être affecté pour pouvoir être résolu.");
 
     incident.statut = 'RESOLU';
+    incident.dateResolution = new Date();
 
     return { ...incident };
 };
