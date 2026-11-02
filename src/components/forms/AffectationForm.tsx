@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useApi } from '../../utils/hooks/useApi'
-import { useUser } from '../../utils/context/useUser'
 import type { Incident, Prestataire } from '../../utils/types'
 
 export function AffectationForm({ incident, setIncident }: { incident: Incident, setIncident: (incident: Incident) => void }) {
     const { getAllPrestataires, affecterPrestataire } = useApi()
-    const { user } = useUser()
     const [prestataires, setPrestataires] = useState<Prestataire[]>([])
     const [selectedPrestataireId, setSelectedPrestataireId] = useState('')
 
@@ -14,7 +12,7 @@ export function AffectationForm({ incident, setIncident }: { incident: Incident,
             setPrestataires(await getAllPrestataires())
         }
         fetchPrestataires()
-    }, [incident, getAllPrestataires, user?.role])
+    }, [incident, getAllPrestataires])
 
     async function handleAssignment(event: React.SyntheticEvent<HTMLFormElement>) {
         event.preventDefault()
