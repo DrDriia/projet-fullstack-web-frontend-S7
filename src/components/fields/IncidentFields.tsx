@@ -24,20 +24,6 @@ export function IncidentFields({ incident }: { incident: Incident }) {
         </Field>
         <Field title="Description" wide>{incident.description}</Field>
       </div>
-      <h2>Évaluation</h2>
-      {incident.evaluation ? (
-        <div className="details-fields">
-          <Field title="Note">{incident.evaluation.note}</Field>
-          <Field title="Date">
-            {incident.evaluation.dateEvaluation.toLocaleDateString('fr-FR')}
-          </Field>
-          {incident.evaluation.commentaire && (
-            <Field title="Commentaire" wide>{incident.evaluation.commentaire}</Field>
-          )}
-        </div>
-      ) : (
-        <Field title="Évaluation">Aucune évaluation enregistrée.</Field>
-      )}
     </>
   )
 }
