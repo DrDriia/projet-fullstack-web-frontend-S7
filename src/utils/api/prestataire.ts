@@ -1,4 +1,4 @@
-import type { Incident } from '../types';
+import type { FormEvaluation, Incident } from '../types';
 import { prestataires } from './fakePrestataire';
 import { incidents } from './fakeIncident';
 
@@ -24,6 +24,24 @@ export const affecterPrestataire = async (
     if (incident.statut === 'OUVERT') incident.statut = 'AFFECTE';
 
     return { ...incident };
+};
+
+export const createEvaluation = async (formData: FormEvaluation, incidentId: number): Promise<Incident> => {
+    // TODO : Call à l'api
+    const incident = incidents.find(i => i.id === incidentId);
+
+    if (!incident) throw new Error("Incident introuvable.");
+    if (incident.statut !== 'RESOLU') throw new Error("Impossible d'évaluer si l'incident n'est pas résolu.");
+
+    incident.evaluation = {
+        id: incident.id,
+        dateEvaluation: new Date(),
+        note: formData.note,
+        commentaire: formData.commentaire,
+        evalueParId: formData.evalueParId 
+    };
+
+    return incident;
 };
 
 // TODO : Create prestataire
