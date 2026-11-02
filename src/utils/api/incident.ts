@@ -27,3 +27,15 @@ export const createIncident = async (formData: FormIncident): Promise<Incident> 
     incidents.push(incident);
     return incident;
 };
+
+export const resolveIncident = async (incidentId: number): Promise<Incident> => {
+    // TODO : implement
+    const incident = incidents.find(current => current.id === incidentId);
+
+    if (!incident) throw new Error('Incident introuvable.');
+    if (incident.statut !== 'AFFECTE') throw new Error("L'incident doit être affecté pour pouvoir être résolu.");
+
+    incident.statut = 'RESOLU';
+
+    return { ...incident };
+};
