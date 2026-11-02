@@ -3,11 +3,12 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useApi } from '../../utils/hooks/useApi'
 import { useUser } from '../../utils/context/useUser'
 import type { Incident } from '../../utils/types'
-import { canAffectIncident, canResolveIncident } from '../../utils/permissions'
+import { canAffectIncident, canEvaluateIncident, canResolveIncident } from '../../utils/permissions'
 import { IncidentFields } from '../fields/IncidentFields'
 import Field from '../common/Field'
 import { AffectationForm } from '../forms/AffectationForm';
 import { ResolveForm } from '../forms/ResolveForm';
+import { FormEvaluation } from '../forms/EvaluationForm';
 
 export function IncidentDetailsPage() {
     const { id } = useParams()
@@ -15,16 +16,17 @@ export function IncidentDetailsPage() {
     const { user } = useUser()
     const navigate = useNavigate()
     const [incident, setIncident] = useState<Incident>()
+    const [refreshData, setRefreshData] = useState(false);
 
     useEffect(() => {
-    async function fetchIncident() {
-        const incidentId = Number(id)
-        const currentIncident = await getIncidentById(incidentId)
-        setIncident(currentIncident);
-    }
-    fetchIncident();
+        async function fetchIncident() {
+            const incidentId = Number(id)
+            const currentIncident = await getIncidentById(incidentId)
+            setIncident(currentIncident);
+        }
+        fetchIncident();
 
-    }, [id, getIncidentById])
+    }, [id, getIncidentById, refreshData])
 
     return (
         <section className="details-page">
@@ -48,6 +50,27 @@ export function IncidentDetailsPage() {
                     <Field title={'Incident résolu ?'} wide>
                         <ResolveForm incident={incident} setIncident={setIncident} />
                     </Field>
+                )}
+                {canEvaluateIncident(incident, user?.role) && (
+                    <>
+                        {incident.evaluation ? (<>
+                                <h2>Evaluation</h2>
+                                <div className="details-fields">
+                                    <Field title="Note">{incident.evaluation.note}</Field>
+                                    <Field title="Date">
+                                        {incident.evaluation.dateEvaluation.toLocaleDateString('fr-FR')}
+                                    </Field>
+                                    {incident.evaluation.commentaire && (
+                                        <Field title="Commentaire" wide>{incident.evaluation.commentaire}</Field>
+                                    )}
+                                </div>
+                            </>
+                        ) : (
+                            <Field title={`Evaluation${incident.prestataire?.nom ? ` de ${incident.prestataire.nom}` : ''}`} wide>
+                                <FormEvaluation incident={incident} onCreated={() => setRefreshData(v => !v)} />
+                            </Field>
+                        )}
+                    </>
                 )}
             </>}
         </section>
