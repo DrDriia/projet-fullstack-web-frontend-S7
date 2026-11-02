@@ -6,6 +6,7 @@ import { IncidentForm } from '../forms/IncidentForm';
 import { Popover } from '../common/Popover'
 import { IncidentTable } from '../tables/IncidentTable'
 import { EquipmentFields } from '../fields/EquipmentFields';
+import { IncidentHistoryTable } from '../tables/IncidentHistoryTable';
 
 export function EquipementDetailsPage() {
   const { id } = useParams()
@@ -57,6 +58,7 @@ export function EquipementDetailsPage() {
                     </Popover>
                 </div>
                 <IncidentTable refreshIncidents={refreshIncidents} equipmentId={equipement.id} />
+                <IncidentHistoryTable equipmentId={equipement.id} />
             </>
         )}
     </section>

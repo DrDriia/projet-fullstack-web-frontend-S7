@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useApi } from '../../utils/hooks/useApi'
 import type { Equipement, Station } from '../../utils/types/equipement'
 import { EquipmentTable } from '../tables/EquipmentTable'
+import { IncidentHistoryTable } from '../tables/IncidentHistoryTable';
 
 export function HomePage() {
   const { getAllStations, getEquipementByStation } = useApi()
@@ -56,8 +57,10 @@ export function HomePage() {
             : (
               <EquipmentTable equipements={equipements} />
             )}
+          <IncidentHistoryTable stationId={Number(stationId)} />
         </div>
       )}
+      
     </section>
   )
 }
