@@ -9,7 +9,7 @@ export const getIncidentById = async (incidentId: number): Promise<Incident | un
 export const getIncidentByEquipement = async (equipmentId: number): Promise<Incident[]> => {
     console.log(`Fetching incident for equipment with ID: ${equipmentId}`);
     // TODO : implement
-    return incidents.filter(i => i.equipement.id === equipmentId);
+    return incidents.filter(i => i.statut !== 'RESOLU' && i.equipement.id === equipmentId);
 };
 
 export const createIncident = async (formData: FormIncident): Promise<Incident> => {
@@ -38,4 +38,9 @@ export const resolveIncident = async (incidentId: number): Promise<Incident> => 
     incident.statut = 'RESOLU';
 
     return { ...incident };
+};
+
+export const getHistoryIncidentsByEquipment = async (stationId: number): Promise<Incident[]> => {
+    // TODO : implement
+    return incidents.filter(i => i.statut === 'RESOLU' && i.equipement.id === stationId);
 };

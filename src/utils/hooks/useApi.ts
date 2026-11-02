@@ -1,8 +1,8 @@
 import { login as apiLogin, logout as apiLogout } from '../api/login';
 import { useUser } from '../context/useUser';
 import type { User } from '../types';
-import { getAllStations, getEquipementByStation, getEquipementById } from '../api/equipement';
-import { getIncidentByEquipement, getIncidentById, createIncident, resolveIncident } from '../api/incident';
+import { getAllStations, getEquipementByStation, getEquipementById, getHistoryIncidentsByStation } from '../api/equipement';
+import { getIncidentByEquipement, getIncidentById, createIncident, resolveIncident, getHistoryIncidentsByEquipment } from '../api/incident';
 import { getAllPrestataires, affecterPrestataire } from '../api/prestataire';
 
 export function useApi() {
@@ -31,5 +31,7 @@ export function useApi() {
     resolveIncident,
     getAllPrestataires,
     affecterPrestataire,
+    getHistoryIncidentsByStation,
+    getHistoryIncidentsByEquipment
   };
 }
