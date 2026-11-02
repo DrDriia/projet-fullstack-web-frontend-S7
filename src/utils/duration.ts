@@ -10,3 +10,8 @@ export function formatDuration(startDate: Date, endDate: Date = new Date()): str
   if (hours > 0) return `${hours} h ${minutes} min`
   return `${minutes} min`
 }
+
+export function formatDate(date?: Date | string) {
+  const dateFormatter = new Intl.DateTimeFormat('fr-FR')
+  return date ? dateFormatter.format(new Date(date)) : '—'
+}
