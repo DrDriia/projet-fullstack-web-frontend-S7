@@ -12,13 +12,15 @@ export interface FormIncident {
     declareParId?: number;
 }
 
-export interface Evaluation {
-    id: number;
-    incident: Incident;
+export interface FormEvaluation {
     note: number;
     commentaire?: string;
-    dateEvaluation: Date;
     evalueParId?: number;
+}
+
+export interface Evaluation extends FormEvaluation {
+    id: number;
+    dateEvaluation: Date;
 }
 
 export interface Incident extends FormIncident {
