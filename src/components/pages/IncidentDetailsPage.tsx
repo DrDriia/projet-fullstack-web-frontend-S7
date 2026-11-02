@@ -3,10 +3,11 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useApi } from '../../utils/hooks/useApi'
 import { useUser } from '../../utils/context/useUser'
 import type { Incident } from '../../utils/types'
-import { canAffectIncident } from '../../utils/permissions'
+import { canAffectIncident, canResolveIncident } from '../../utils/permissions'
 import { IncidentFields } from '../fields/IncidentFields'
 import Field from '../common/Field'
 import { AffectationForm } from '../forms/AffectationForm';
+import { ResolveForm } from '../forms/ResolveForm';
 
 export function IncidentDetailsPage() {
     const { id } = useParams()
@@ -41,6 +42,11 @@ export function IncidentDetailsPage() {
                 {canAffectIncident(incident, user?.role) && (
                     <Field title={incident.prestataire ? 'Réaffecter' : 'Affecter'} wide>
                         <AffectationForm incident={incident} setIncident={setIncident} />
+                    </Field>
+                )}
+                {canResolveIncident(incident, user?.role) && (
+                    <Field title={'Incident résolu ?'} wide>
+                        <ResolveForm incident={incident} setIncident={setIncident} />
                     </Field>
                 )}
             </>}
