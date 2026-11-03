@@ -1,20 +1,18 @@
 import type { Equipement, Station } from '../types';
-import { equipements, stations } from './fakeEquipement';
+import { appeler, lireJson } from './client';
 
 export const getAllStations = async (): Promise<Station[]> => {
-    console.log(`Fetching all stations`);
-    // TODO : implement
-    return stations;
+    const reponse = await appeler('/api/stations');
+    return lireJson<Station[]>(reponse);
 };
 
 export const getEquipementByStation = async (stationId: number): Promise<Equipement[]> => {
-    console.log(`Fetching equipment for station with ID: ${stationId}`);
-    // TODO : implement
-    return equipements.filter(e => e.station.id === stationId);
+    const reponse = await appeler(`/api/stations/${stationId}/equipements`);
+    return lireJson<Equipement[]>(reponse);
 };
 
 export const getEquipementById = async (id: number): Promise<Equipement | undefined> => {
-    console.log(`Fetching equipment with ID: ${id}`);
-    // TODO : implement
-    return equipements.find(e => e.id === id);
+    const reponse = await appeler(`/api/equipements/${id}`);
+    if (reponse.status === 404) return undefined;
+    return lireJson<Equipement>(reponse);
 };

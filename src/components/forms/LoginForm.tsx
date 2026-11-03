@@ -3,7 +3,7 @@ import { useApi } from "../../utils/hooks/useApi";
 import { useNavigate } from "react-router-dom";
 
 export function LoginForm() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string>();
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ export function LoginForm() {
     setError(undefined);
 
     try {
-      const user = await login(email, password);
+      const user = await login(username, password);
       console.log("Connexion bien réalisée avec", user);
       navigate("/");
     } catch {
@@ -31,15 +31,15 @@ export function LoginForm() {
         )}
 
         <div className="login-field">
-            <label htmlFor="email">Adresse e-mail</label>
+            <label htmlFor="username">Nom d'utilisateur</label>
             <input
-                id="email"
-                name="email"
-                type="email"
+                id="username"
+                name="username"
+                type="text"
                 autoComplete="username"
-                placeholder="nom@exemple.fr"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
+                placeholder="ex. agent1"
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
                 required
             />
         </div>

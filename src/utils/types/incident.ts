@@ -1,7 +1,7 @@
 import type { Prestataire } from "./user";
 import type { Equipement } from "./equipement";
 
-export type Priority = 'HAUTE' | 'MOYENNE' | 'BASSE';
+export type Priority = 'BASSE' | 'NORMALE' | 'HAUTE' | 'CRITIQUE';
 export type Status = 'OUVERT' | 'AFFECTE' | 'RESOLU';
 
 export interface FormIncident {
@@ -14,7 +14,7 @@ export interface FormIncident {
 
 export interface Evaluation {
     id: number;
-    incident: Incident;
+    incidentId: number;
     note: number;
     commentaire?: string;
     dateEvaluation: Date;

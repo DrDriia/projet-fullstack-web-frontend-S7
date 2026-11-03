@@ -1,9 +1,10 @@
-import type { Incident } from '../types';
-import { prestataires } from './fakePrestataire';
-import { incidents } from './fakeIncident';
+import type { Incident, Prestataire } from '../types';
+import { appeler, lireJson } from './client';
+import { convertirDates } from './incident';
 
 export const getAllPrestataires = async () => {
-    // TODO : Call à l'api
+    const reponse = await appeler('/api/prestataires');
+    const prestataires = await lireJson<Prestataire[]>(reponse);
     return prestataires.filter(prestataire => prestataire.actif);
 };
 
@@ -11,19 +12,10 @@ export const affecterPrestataire = async (
     incidentId: number,
     prestataireId: number,
 ): Promise<Incident> => {
-    // TODO : Call à l'api
-    const incident = incidents.find(current => current.id === incidentId);
-    const prestataire = prestataires.find(current => current.id === prestataireId && current.actif);
-
-    if (!incident) throw new Error('Incident introuvable.');
-    if (incident.statut === 'RESOLU') throw new Error('Un incident résolu ne peut plus être affecté.');
-    if (!prestataire) throw new Error('Prestataire introuvable ou inactif.');
-
-    incident.prestataire = prestataire;
-    incident.dateAffectation = new Date();
-    if (incident.statut === 'OUVERT') incident.statut = 'AFFECTE';
-
-    return { ...incident };
+    const reponse = await appeler(`/api/incidents/${incidentId}/prestataire`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prestataireId }),
+    });
+    return convertirDates(await lireJson<Incident>(reponse));
 };
-
-// TODO : Create prestataire

@@ -2,13 +2,13 @@ export type Role = 'respo' | 'agent';
 
 export interface User {
     id: number;
-    nom: string;
+    nom?: string;
     prenom: string;
-    email: string;
+    email?: string;
     role: Role;
     actif: boolean;
     dateCreation: Date;
-    derniereConnexion: Date;
+    derniereConnexion?: Date;
 }
 
 export interface Prestataire {

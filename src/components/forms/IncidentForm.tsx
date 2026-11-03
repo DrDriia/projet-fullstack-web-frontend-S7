@@ -5,8 +5,9 @@ import type { Equipement, FormIncident, Priority } from "../../utils/types";
 
 const PRIORITES: { value: Priority; label: string }[] = [
   { value: "BASSE", label: "Basse" },
-  { value: "MOYENNE", label: "Moyenne" },
+  { value: "NORMALE", label: "Normale" },
   { value: "HAUTE", label: "Haute" },
+  { value: "CRITIQUE", label: "Critique" },
 ];
 
 export function IncidentForm({ equipement, onCreated }: {

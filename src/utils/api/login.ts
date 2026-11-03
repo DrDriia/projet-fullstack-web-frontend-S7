@@ -1,21 +1,31 @@
 import type { User } from '../types';
+import { appeler, lireJson } from './client';
+
+type UtilisateurDto = Omit<User, 'role' | 'dateCreation' | 'derniereConnexion'> & {
+    profil: 'RESPONSABLE_EXPLOITATION' | 'AGENT';
+    dateCreation: string;
+    derniereConnexion?: string | null;
+};
 
 export const login = async (email: string, password: string): Promise<User> => {
-    console.log(`Logging in with email: ${email} and password: ${password}`);
-    // TODO : implement
+    await appeler('/api/me');
+
+    const reponse = await appeler('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ username: email, password }),
+    });
+    if (!reponse.ok) throw new Error('Identifiant ou mot de passe invalide.');
+
+    const { profil, ...reste } = await lireJson<UtilisateurDto>(await appeler('/api/me'));
     return {
-        id: 1,
-        nom: 'Bernard',
-        prenom: 'Jean',
-        email,
-        role: password === 'admin' ? 'respo' : 'agent',
-        actif: true,
-        dateCreation: new Date(),
-        derniereConnexion: new Date()
+        ...reste,
+        role: profil === 'RESPONSABLE_EXPLOITATION' ? 'respo' : 'agent',
+        dateCreation: new Date(reste.dateCreation),
+        derniereConnexion: reste.derniereConnexion ? new Date(reste.derniereConnexion) : undefined,
     };
- };
+};
 
 export const logout = async (): Promise<void> => {
-    // TODO : implement
-    console.log("Déconnexion avec succès");
+    await appeler('/api/logout', { method: 'POST' });
 };
