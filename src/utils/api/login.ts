@@ -7,20 +7,20 @@ type UtilisateurDto = Omit<User, 'role' | 'dateCreation' | 'derniereConnexion'> 
     derniereConnexion?: string | null;
 };
 
-export const login = async (email: string, password: string): Promise<User> => {
+export const login = async (username: string, password: string): Promise<User> => {
     await appeler('/api/me');
 
     const reponse = await appeler('/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({ username: email, password }),
+        body: new URLSearchParams({ username: username, password }),
     });
     if (!reponse.ok) throw new Error('Identifiant ou mot de passe invalide.');
 
     const { profil, ...reste } = await lireJson<UtilisateurDto>(await appeler('/api/me'));
     return {
         ...reste,
-        role: profil === 'RESPONSABLE_EXPLOITATION' ? 'respo' : 'agent',
+        role: profil,
         dateCreation: new Date(reste.dateCreation),
         derniereConnexion: reste.derniereConnexion ? new Date(reste.derniereConnexion) : undefined,
     };
