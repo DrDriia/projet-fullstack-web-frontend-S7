@@ -12,6 +12,11 @@ export const getAllPrestataires = async () => {
     return prestataires;
 };
 
+export const getPrestataireById = async (prestataireId: number) => {
+    // TODO : Call à l'api
+    return prestataires.find(p => p.id === prestataireId);
+};
+
 export const affecterPrestataire = async (
     incidentId: number,
     prestataireId: number,
@@ -63,4 +68,9 @@ export const createPrestataire = async (formData: FormPrestataire): Promise<Pres
     };
     prestataires.push(prestataire);
     return prestataire;
+};
+
+export const getIncidentsWithEvaluationByPrestataire = async (prestataireId: number) => {
+    // TODO : Call à l'api
+    return incidents.filter(i => i.prestataire?.id === prestataireId && i.evaluation)
 };

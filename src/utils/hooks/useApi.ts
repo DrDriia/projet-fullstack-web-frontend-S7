@@ -3,7 +3,7 @@ import { useUser } from '../context/useUser';
 import type { User } from '../types';
 import { getAllStations, getEquipementByStation, getEquipementById, getHistoryIncidentsByStation } from '../api/equipement';
 import { getIncidentByEquipement, getIncidentById, createIncident, resolveIncident, getHistoryIncidentsByEquipment } from '../api/incident';
-import { getAllPrestataires, affecterPrestataire, createPrestataire, createEvaluation, getAllActivePrestataires } from '../api/prestataire';
+import { getAllPrestataires, affecterPrestataire, createPrestataire, createEvaluation, getAllActivePrestataires, getPrestataireById, getIncidentsWithEvaluationByPrestataire } from '../api/prestataire';
 
 export function useApi() {
   const { setUser } = useUser();
@@ -31,10 +31,12 @@ export function useApi() {
     resolveIncident,
     getAllPrestataires,
     getAllActivePrestataires,
+    getPrestataireById,
     affecterPrestataire,
     createPrestataire,
     createEvaluation,
     getHistoryIncidentsByStation,
-    getHistoryIncidentsByEquipment
+    getHistoryIncidentsByEquipment,
+    getIncidentsWithEvaluationByPrestataire
   };
 }
