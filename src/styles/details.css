@@ -141,3 +141,10 @@ button.details-back:focus-visible {
   background: var(--social-bg);
   cursor: pointer;
 }
+
+.cell-truncate {
+  max-width: 320px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
