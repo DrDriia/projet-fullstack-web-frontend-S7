@@ -1,7 +1,7 @@
 import type { Prestataire } from "./user";
 import type { Equipement } from "./equipement";
 
-export type Priority = 'HAUTE' | 'MOYENNE' | 'BASSE';
+export type Priority = 'BASSE' | 'NORMALE' | 'HAUTE' | 'CRITIQUE';
 export type Status = 'OUVERT' | 'AFFECTE' | 'RESOLU';
 
 export interface FormIncident {

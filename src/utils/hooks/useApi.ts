@@ -8,8 +8,8 @@ import { getAllPrestataires, affecterPrestataire, createPrestataire, createEvalu
 export function useApi() {
   const { setUser } = useUser();
 
-  async function login(email: string, password: string): Promise<User> {
-    const user = await apiLogin(email, password);
+  async function login(username: string, password: string): Promise<User> {
+    const user = await apiLogin(username, password);
     setUser(user);
     return user;
   }

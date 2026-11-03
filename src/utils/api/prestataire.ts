@@ -1,19 +1,23 @@
 import type { FormEvaluation, FormPrestataire, Incident, Prestataire } from '../types';
-import { prestataires } from './fakePrestataire';
-import { incidents } from './fakeIncident';
+import { appeler, lireJson } from './client';
+import { convertirDates } from './incident';
 
 export const getAllActivePrestataires = async () => {
-    // TODO : Call à l'api
+    // TODO : Api path on back
+    const response = await appeler('/api/prestataires');
+    const prestataires = await lireJson<Prestataire[]>(response);
     return prestataires.filter(prestataire => prestataire.actif);
 }
 
 export const getAllPrestataires = async () => {
-    // TODO : Call à l'api
-    return prestataires;
-};
+    const response = await appeler('/api/prestataires');
+    return await lireJson<Prestataire[]>(response);
+}
 
 export const getPrestataireById = async (prestataireId: number) => {
-    // TODO : Call à l'api
+    // TODO : Api path on back
+    const response = await appeler('/api/prestataires');
+    const prestataires = await lireJson<Prestataire[]>(response);
     return prestataires.find(p => p.id === prestataireId);
 };
 
@@ -21,24 +25,17 @@ export const affecterPrestataire = async (
     incidentId: number,
     prestataireId: number,
 ): Promise<Incident> => {
-    // TODO : Call à l'api
-    const incident = incidents.find(current => current.id === incidentId);
-    const prestataire = prestataires.find(current => current.id === prestataireId && current.actif);
-
-    if (!incident) throw new Error('Incident introuvable.');
-    if (incident.statut === 'RESOLU') throw new Error('Un incident résolu ne peut plus être affecté.');
-    if (!prestataire) throw new Error('Prestataire introuvable ou inactif.');
-
-    incident.prestataire = prestataire;
-    incident.dateAffectation = new Date();
-    if (incident.statut === 'OUVERT') incident.statut = 'AFFECTE';
-
-    return { ...incident };
+    const response = await appeler(`/api/incidents/${incidentId}/prestataire`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prestataireId }),
+    });
+    return convertirDates(await lireJson<Incident>(response));
 };
 
 export const createEvaluation = async (formData: FormEvaluation, incidentId: number): Promise<Incident> => {
-    // TODO : Call à l'api
-    const incident = incidents.find(i => i.id === incidentId);
+    // TODO : Api path on back
+    /*const incident = incidents.find(i => i.id === incidentId);
 
     if (!incident) throw new Error("Incident introuvable.");
     if (incident.statut !== 'RESOLU') throw new Error("Impossible d'évaluer si l'incident n'est pas résolu.");
@@ -51,12 +48,12 @@ export const createEvaluation = async (formData: FormEvaluation, incidentId: num
         evalueParId: formData.evalueParId 
     };
 
-    return incident;
+    return incident;*/
 };
 
 export const createPrestataire = async (formData: FormPrestataire): Promise<Prestataire> => {
-    // TODO : Call à l'api
-    const prestataire: Prestataire = {
+    // TODO : Api path on back
+    /*const prestataire: Prestataire = {
         id: Math.max(0, ...prestataires.map(i => i.id)) + 1,
         dateCreation: new Date(),
         nom: formData.nom,
@@ -67,10 +64,10 @@ export const createPrestataire = async (formData: FormPrestataire): Promise<Pres
         actif: formData.actif,
     };
     prestataires.push(prestataire);
-    return prestataire;
+    return prestataire;*/
 };
 
 export const getIncidentsWithEvaluationByPrestataire = async (prestataireId: number) => {
-    // TODO : Call à l'api
-    return incidents.filter(i => i.prestataire?.id === prestataireId && i.evaluation)
+    // TODO : Api path on back
+    //return incidents.filter(i => i.prestataire?.id === prestataireId && i.evaluation)
 };
