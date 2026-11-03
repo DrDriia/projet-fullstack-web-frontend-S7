@@ -3,7 +3,7 @@ import { useUser } from "../../utils/context/useUser";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Layout({ title, children }: { title?: string, children: React.ReactNode }) {
+function Layout({ children }: { title?: string, children: React.ReactNode }) {
   const { user } = useUser();
   const navigate = useNavigate();
 
@@ -16,7 +16,6 @@ function Layout({ title, children }: { title?: string, children: React.ReactNode
   return (
     <>
       <Header />
-      <h1>{title}</h1>
       <div id="main-content" className="page-content" tabIndex={-1}>
         {children}
       </div>
