@@ -1,10 +1,15 @@
-import type { FormEvaluation, Incident } from '../types';
+import type { FormEvaluation, FormPrestataire, Incident, Prestataire } from '../types';
 import { prestataires } from './fakePrestataire';
 import { incidents } from './fakeIncident';
 
-export const getAllPrestataires = async () => {
+export const getAllActivePrestataires = async () => {
     // TODO : Call à l'api
     return prestataires.filter(prestataire => prestataire.actif);
+}
+
+export const getAllPrestataires = async () => {
+    // TODO : Call à l'api
+    return prestataires;
 };
 
 export const affecterPrestataire = async (
@@ -44,4 +49,18 @@ export const createEvaluation = async (formData: FormEvaluation, incidentId: num
     return incident;
 };
 
-// TODO : Create prestataire
+export const createPrestataire = async (formData: FormPrestataire): Promise<Prestataire> => {
+    // TODO : Call à l'api
+    const prestataire: Prestataire = {
+        id: Math.max(0, ...prestataires.map(i => i.id)) + 1,
+        dateCreation: new Date(),
+        nom: formData.nom,
+        email: formData.email,
+        telephone: formData.telephone,
+        adresse: formData.adresse,
+        specialite: formData.specialite,
+        actif: formData.actif,
+    };
+    prestataires.push(prestataire);
+    return prestataire;
+};
