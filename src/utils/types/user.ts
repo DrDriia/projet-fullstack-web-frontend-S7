@@ -11,13 +11,16 @@ export interface User {
     derniereConnexion: Date;
 }
 
-export interface Prestataire {
-    id: number;
+export interface FormPrestataire {
     nom: string;
     email: string;
     telephone: string;
     adresse: string;
     specialite: string;
     actif: boolean;
+}
+
+export interface Prestataire extends FormPrestataire {
+    id: number;
     dateCreation: Date;
 }
