@@ -1,5 +1,5 @@
 import { convertIncidentDate } from '../duration';
-import type { Incident, FormIncident } from '../types';
+import type { Incident, FormIncident, FormEvaluation } from '../types';
 import { appeler, lireJson } from './client';
 
 export const getIncidentById = async (incidentId: number): Promise<Incident | undefined> => {
@@ -28,17 +28,35 @@ export const createIncident = async (formData: FormIncident): Promise<Incident> 
     return convertIncidentDate(await lireJson<Incident>(reponse));
 };
 
-export const resolveIncident = async (incidentId: number): Promise<Incident> => {
-    // TODO : implement
-    /*const incident = incidents.find(current => current.id === incidentId);
+export const affecterPrestataire = async (
+    incidentId: number,
+    prestataireId: number,
+): Promise<Incident> => {
+    const response = await appeler(`/api/incidents/${incidentId}/prestataire`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prestataireId }),
+    });
+    return convertIncidentDate(await lireJson<Incident>(response));
+};
 
-    if (!incident) throw new Error('Incident introuvable.');
-    if (incident.statut !== 'AFFECTE') throw new Error("L'incident doit être affecté pour pouvoir être résolu.");
+export const resolveIncident = async (
+    incidentId: number,
+): Promise<Incident> => {
+    const response = await appeler(`/api/incidents/${incidentId}/resolve`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+    });
+    return convertIncidentDate(await lireJson<Incident>(response));
+};
 
-    incident.statut = 'RESOLU';
-    incident.dateResolution = new Date();
-
-    return { ...incident };*/
+export const createEvaluation = async (formData: FormEvaluation, incidentId: number): Promise<Incident> => {
+    const response = await appeler(`/api/incidents/${incidentId}/evaluation`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+    });
+    return convertIncidentDate(await lireJson<Incident>(response));
 };
 
 export const getHistoryIncidentsByEquipment = async (equipmentId: number): Promise<Incident[]> => {
