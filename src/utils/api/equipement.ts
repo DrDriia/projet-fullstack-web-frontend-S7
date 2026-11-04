@@ -1,5 +1,6 @@
 import type { Equipement, Incident, Station } from '../types';
 import { appeler, lireJson } from './client';
+import { convertirDates } from './incident';
 
 export const getAllStations = async (): Promise<Station[]> => {
     const reponse = await appeler('/api/stations');
@@ -18,6 +19,5 @@ export const getEquipementById = async (id: number): Promise<Equipement | undefi
 };
 
 export const getHistoryIncidentsByStation = async (stationId: number): Promise<Incident[]> => {
-    // TODO : Api path on back
-    //return incidents.filter(i => i.statut === 'RESOLU' && i.equipement.station.id === stationId);
+    return (await lireJson<Incident[]>(await appeler(`/api/stations/${stationId}/history`))).map(convertirDates);
 };
