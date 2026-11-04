@@ -3,22 +3,19 @@ import type { FormEvaluation, FormPrestataire, Incident, Prestataire } from '../
 import { appeler, lireJson } from './client';
 
 export const getAllActivePrestataires = async () => {
-    // TODO : Api path on back
-    const response = await appeler('/api/prestataires');
-    const prestataires = await lireJson<Prestataire[]>(response);
-    return prestataires.filter(prestataire => prestataire.actif);
-}
+    const response = await appeler('/api/prestataires/active');
+    return await lireJson<Prestataire[]>(response);
+};
 
 export const getAllPrestataires = async () => {
     const response = await appeler('/api/prestataires');
     return await lireJson<Prestataire[]>(response);
-}
+};
 
 export const getPrestataireById = async (prestataireId: number) => {
-    // TODO : Api path on back
-    const response = await appeler('/api/prestataires');
-    const prestataires = await lireJson<Prestataire[]>(response);
-    return prestataires.find(p => p.id === prestataireId);
+    const response = await appeler(`/api/prestataires/${prestataireId}`);
+    if (response.status === 404) return undefined;
+    return await lireJson<Prestataire>(response);
 };
 
 export const affecterPrestataire = async (
@@ -52,22 +49,16 @@ export const createEvaluation = async (formData: FormEvaluation, incidentId: num
 };
 
 export const createPrestataire = async (formData: FormPrestataire): Promise<Prestataire> => {
-    // TODO : Api path on back
-    /*const prestataire: Prestataire = {
-        id: Math.max(0, ...prestataires.map(i => i.id)) + 1,
-        dateCreation: new Date(),
-        nom: formData.nom,
-        email: formData.email,
-        telephone: formData.telephone,
-        adresse: formData.adresse,
-        specialite: formData.specialite,
-        actif: formData.actif,
-    };
-    prestataires.push(prestataire);
-    return prestataire;*/
+    const response = await appeler('/api/prestataires', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+    });
+    return await lireJson<Prestataire>(response);
 };
 
-export const getIncidentsWithEvaluationByPrestataire = async (prestataireId: number) => {
-    // TODO : Api path on back
-    //return incidents.filter(i => i.prestataire?.id === prestataireId && i.evaluation)
+export const getIncidentsWithEvaluationByPrestataire = async (prestataireId: number): Promise<Incident[]> => {
+    const response = await appeler(`/api/prestataires/${prestataireId}/incidents-evalues`);
+    const incidents = await lireJson<Incident[]>(response);
+    return incidents.map(convertIncidentDate);
 };
