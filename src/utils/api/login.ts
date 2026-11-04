@@ -13,7 +13,7 @@ export const login = async (username: string, password: string): Promise<User> =
     const reponse = await appeler('/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({ username: username, password }),
+        body: new URLSearchParams({ username, password }),
     });
     if (!reponse.ok) throw new Error('Identifiant ou mot de passe invalide.');
 
