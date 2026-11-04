@@ -1,6 +1,6 @@
+import { convertIncidentDate } from './../duration';
 import type { FormEvaluation, FormPrestataire, Incident, Prestataire } from '../types';
 import { appeler, lireJson } from './client';
-import { convertirDates } from './incident';
 
 export const getAllActivePrestataires = async () => {
     // TODO : Api path on back
@@ -30,7 +30,7 @@ export const affecterPrestataire = async (
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prestataireId }),
     });
-    return convertirDates(await lireJson<Incident>(response));
+    return convertIncidentDate(await lireJson<Incident>(response));
 };
 
 export const createEvaluation = async (formData: FormEvaluation, incidentId: number): Promise<Incident> => {
