@@ -3,7 +3,7 @@ import { useUser } from "../../utils/context/useUser";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Layout({ children }: { title?: string, children: React.ReactNode }) {
+function Layout({ children }: {children: React.ReactNode }) {
   const { user } = useUser();
   const navigate = useNavigate();
 

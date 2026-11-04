@@ -10,9 +10,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           {
-            navigationItems.map(({ to, page, label }, index) => (
+            navigationItems.map(({ to, page }, index) => (
               <Route key={index} path={to} element={
-                <Layout title={label} >
+                <Layout>
                   {createElement(page)}
                 </Layout>
                 }
