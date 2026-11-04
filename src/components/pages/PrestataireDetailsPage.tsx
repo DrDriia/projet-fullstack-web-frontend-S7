@@ -34,10 +34,6 @@ export function PrestataireDetailsPage() {
                     </div>
 
                     <PrestataireFields prestataire={prestataire} />
-
-                    <div className="incidents-header">
-                        <h2>Incidents en cours</h2>
-                    </div>
                     <EvaluationHistoryTable prestataireId={prestataire.id} />
                 </>
             )}
