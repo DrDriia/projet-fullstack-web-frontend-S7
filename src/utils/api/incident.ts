@@ -54,7 +54,6 @@ export const resolveIncident = async (incidentId: number): Promise<Incident> => 
     return { ...incident };*/
 };
 
-export const getHistoryIncidentsByEquipment = async (stationId: number): Promise<Incident[]> => {
-    // TODO : implement
-    //return incidents.filter(i => i.statut === 'RESOLU' && i.equipement.id === stationId);
+export const getHistoryIncidentsByEquipment = async (equipmentId: number): Promise<Incident[]> => {
+    return (await lireJson<Incident[]>(await appeler(`/api/equipements/${equipmentId}/history`))).map(convertirDates);
 };
