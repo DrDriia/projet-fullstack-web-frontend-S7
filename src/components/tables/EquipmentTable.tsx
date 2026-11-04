@@ -32,7 +32,7 @@ export function EquipmentTable({ equipements }: { equipements: Equipement[] }) {
               <th scope="row">{equipement.reference}</th>
               <td>{equipement.libelle}</td>
               <td>{equipement.type.libelle}</td>
-              <td>{equipement.etat}</td>
+              <td>{equipement.etat.replaceAll('_', ' ')}</td>
             </tr>
           ))}
         </tbody>

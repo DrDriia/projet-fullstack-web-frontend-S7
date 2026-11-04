@@ -36,7 +36,7 @@ export function EquipementDetailsPage() {
                         <div className="details-reference">{equipement.reference}</div>
                         <h2>{equipement.libelle}</h2>
                     </div>
-                    <div className="details-badge">{equipement.etat}</div>
+                    <div className="details-badge">{equipement.etat.replaceAll('_', ' ')}</div>
                 </div>
                 <EquipmentFields equipment={equipement} />
                 <div className="incidents-header">
