@@ -63,12 +63,13 @@ button.details-back:focus-visible {
 }
 
 .details-fields {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 12px;
 }
 
 .details-field {
+  flex: 1 1 200px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -80,7 +81,8 @@ button.details-back:focus-visible {
 }
 
 .details-field--wide {
-  grid-column: 1 / -1;
+  flex-basis: 100%;
+  grid-column: auto;
 }
 
 .details-field-label {
