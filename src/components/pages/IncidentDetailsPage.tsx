@@ -56,7 +56,9 @@ export function IncidentDetailsPage() {
                         {incident.evaluation ? (<>
                                 <h2>Evaluation</h2>
                                 <div className="details-fields">
-                                    <Field title="Note">{incident.evaluation.note}</Field>
+                                    <Field title="Note">
+                                        {incident.evaluation.note}/5
+                                    </Field>
                                     <Field title="Date">
                                         {incident.evaluation.dateEvaluation.toLocaleDateString('fr-FR')}
                                     </Field>
