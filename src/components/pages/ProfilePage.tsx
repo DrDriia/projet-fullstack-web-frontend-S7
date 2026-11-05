@@ -1,4 +1,5 @@
 import { useUser } from '../../utils/context/useUser'
+import Field from '../common/Field';
 
 export function ProfilePage() {
   const { user } = useUser()
@@ -8,10 +9,17 @@ export function ProfilePage() {
       {user ? (
         <>
           <div className="profile-details">
-            <div>Prénom</div><div>{user.prenom}</div>
-            <div>Nom</div><div>{user.nom}</div>
-            <div>Email</div><div>{user.email}</div>
-            <div>Rôle</div><div>{user.role === 'RESPONSABLE_EXPLOITATION' ? 'Responsable exp' : 'Agent'}</div>
+            <Field title="Prénom">{user.prenom}</Field>
+            <Field title="Nom">{user.nom}</Field>
+            <Field title="Email">{user.email}</Field>
+            <Field title="Rôle">{user.role === 'AGENT' ? 'Agent' : 'Responsable'}</Field>
+            <Field title="Date de création">{new Date(user.dateCreation).toLocaleDateString('fr-FR')}</Field>
+            <Field title="Dernière connexion">
+              {user.derniereConnexion
+                ? new Date(user.dateCreation).toLocaleDateString('fr-FR')
+                : 'Jamais'
+              }
+              </Field>
           </div>
         </>
       ) : <div>Aucun utilisateur connecté.</div>}
