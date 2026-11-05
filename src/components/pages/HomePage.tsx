@@ -51,7 +51,7 @@ export function HomePage() {
       </div>
 
       {stationId && (
-        <div>
+        <div className="details-page">
           <h2>Equipements</h2>
           {equipements.length === 0 ? <p>Aucun équipement dans cette station.</p>
             : (
