@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useApi } from '../../utils/hooks/useApi'
 import type { Equipement } from '../../utils/types/equipement'
 import { IncidentForm } from '../forms/IncidentForm';
@@ -10,6 +10,7 @@ import { IncidentHistoryTable } from '../tables/IncidentHistoryTable';
 
 export function EquipementDetailsPage() {
   const { id } = useParams()
+  const navigate = useNavigate()
   const { getEquipementById } = useApi()
   const [equipement, setEquipement] = useState<Equipement>()
   const [showPopover, setShowPopover] = useState(false)
@@ -27,40 +28,40 @@ export function EquipementDetailsPage() {
 
   return (
         <section className="details-page">
-            <Link className="details-back" to="/">← Retour aux stations</Link>
-      {!equipement ? <p>Equipement introuvable</p>
-        : (
-            <>
-                <div className="details-header">
-                    <div>
-                        <div className="details-reference">{equipement.reference}</div>
-                        <h2>{equipement.libelle}</h2>
+            <button className="details-back" onClick={() => navigate(-1)}>← Retour</button>
+            {!equipement ? <p>Equipement introuvable</p>
+            : (
+                <>
+                    <div className="details-header">
+                        <div>
+                            <div className="details-reference">{equipement.reference}</div>
+                            <h2>{equipement.libelle}</h2>
+                        </div>
+                        <div className="details-badge">{equipement.etat.replaceAll('_', ' ')}</div>
                     </div>
-                    <div className="details-badge">{equipement.etat.replaceAll('_', ' ')}</div>
-                </div>
-                <EquipmentFields equipment={equipement} />
-                <div className="incidents-header">
-                    <h2>Incidents liés à l'équipement</h2>
-                    <Popover
-                        id="nouvel-incident-popover"
-                        title="Nouvel incident"
-                        triggerLabel="Déclarer un incident"
-                        showPopover={showPopover}
-                        setShowPopover={setShowPopover}
-                    >
-                        <IncidentForm
-                            equipement={equipement}
-                            onCreated={() => {
-                                setRefreshIncidents(v => !v)
-                                setShowPopover(false)
-                            }}
-                        />
-                    </Popover>
-                </div>
-                <IncidentTable refreshIncidents={refreshIncidents} equipmentId={equipement.id} />
-                <IncidentHistoryTable equipmentId={equipement.id} />
-            </>
-        )}
-    </section>
-  )
+                    <EquipmentFields equipment={equipement} />
+                    <div className="incidents-header">
+                        <h2>Incidents liés à l'équipement</h2>
+                        <Popover
+                            id="nouvel-incident-popover"
+                            title="Nouvel incident"
+                            triggerLabel="Déclarer un incident"
+                            showPopover={showPopover}
+                            setShowPopover={setShowPopover}
+                        >
+                            <IncidentForm
+                                equipement={equipement}
+                                onCreated={() => {
+                                    setRefreshIncidents(v => !v)
+                                    setShowPopover(false)
+                                }}
+                            />
+                        </Popover>
+                    </div>
+                    <IncidentTable refreshIncidents={refreshIncidents} equipmentId={equipement.id} />
+                    <IncidentHistoryTable equipmentId={equipement.id} />
+                </>
+            )}
+        </section>
+    )
 }

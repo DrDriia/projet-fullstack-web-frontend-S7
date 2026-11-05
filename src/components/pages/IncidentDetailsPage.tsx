@@ -30,7 +30,7 @@ export function IncidentDetailsPage() {
 
     return (
         <section className="details-page">
-            <button className="details-back" onClick={() => navigate(-1)}>← Retour à l'équipement</button>
+            <button className="details-back" onClick={() => navigate(-1)}>← Retour</button>
             {!incident ? <p>Incident introuvable</p>
             : <>
                 <div className="details-header">

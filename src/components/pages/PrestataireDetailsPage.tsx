@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useApi } from '../../utils/hooks/useApi'
 import type { Prestataire } from '../../utils/types'
 import { PrestataireFields } from '../fields/PrestataireFields'
@@ -7,6 +7,7 @@ import { EvaluationHistoryTable } from '../tables/EvaluationHistoryTable'
 
 export function PrestataireDetailsPage() {
     const { id } = useParams()
+    const navigate = useNavigate()
     const { getPrestataireById } = useApi()
     const [prestataire, setPrestataire] = useState<Prestataire>()
 
@@ -20,7 +21,7 @@ export function PrestataireDetailsPage() {
 
     return (
         <section className="details-page">
-            <Link className="details-back" to="/prestataire">← Retour aux prestataires</Link>
+            <button className="details-back" onClick={() => navigate(-1)}>← Retour</button>
             {!prestataire ? (
                 <p>Prestataire introuvable</p>
             ) : (
