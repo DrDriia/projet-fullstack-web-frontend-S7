@@ -42,7 +42,8 @@
 }
 
 .incident-field > input,
-.incident-field > select {
+.incident-field > select,
+.incident-field > textarea {
   width: 100%;
   min-height: 44px;
   box-sizing: border-box;
@@ -56,15 +57,23 @@
 }
 
 .incident-field > input:hover,
-.incident-field > select:hover {
+.incident-field > select:hover,
+.incident-field > textarea:hover {
   border-color: var(--accent-border);
 }
 
 .incident-field > input:focus-visible,
-.incident-field > select:focus-visible {
+.incident-field > select:focus-visible,
+.incident-field > textarea:focus-visible {
   border-color: var(--accent);
   outline: 2px solid var(--accent-border);
   outline-offset: 2px;
+}
+
+.incident-field > textarea {
+  min-height: 96px;
+  line-height: 1.5;
+  resize: vertical;
 }
 
 .incident-radios {
@@ -135,4 +144,84 @@
   .incident-form {
     padding-inline: 16px;
   }
+}
+
+/* Formulaire affiché dans la page (hors popover) */
+.incident-form--card {
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--social-bg);
+  text-align: left;
+}
+
+.incident-form--card .incident-submit {
+  align-self: flex-start;
+}
+
+@media (max-width: 480px) {
+  .incident-form--card {
+    padding: 16px;
+  }
+}
+
+/* Notation par étoiles */
+.evaluation-stars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.evaluation-star {
+  position: relative;
+  display: flex;
+}
+
+/* Le radio couvre l'étoile : invisible mais focusable (la validation "required" reste ancrée ici) */
+.evaluation-star input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.evaluation-star label {
+  display: flex;
+  padding: 6px;
+  border-radius: 6px;
+  color: var(--text);
+  cursor: pointer;
+  transition: color 0.12s ease;
+}
+
+.evaluation-star label.is-filled {
+  color: var(--accent);
+}
+
+.evaluation-star svg {
+  width: 32px;
+  height: 32px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linejoin: round;
+}
+
+.evaluation-star label.is-filled svg {
+  fill: currentColor;
+}
+
+.evaluation-star input:focus-visible + label {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.evaluation-stars-value {
+  margin-left: 10px;
+  color: var(--text-h);
+  font-size: 15px;
+  font-weight: 600;
 }
