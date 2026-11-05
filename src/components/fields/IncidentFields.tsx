@@ -12,7 +12,13 @@ export function IncidentFields({ incident }: { incident: Incident }) {
           {formatDuration(incident.dateOuverture, incident.dateResolution)}
         </Field>
         <Field title="Prestataire">
-          {incident.prestataire?.nom ?? 'Aucun prestataire affecté'}
+          {
+            incident.prestataire
+            ? <Link className="details-field-value" to={`/prestataire/${incident.prestataire.id}`}>
+              {incident.prestataire.nom} ({incident.prestataire.specialite})
+            </Link>
+            : 'Aucun prestataire affecté'
+          }
         </Field>
         <Field title="Équipement">
           <Link className="details-field-value" to={`/equipement/${incident.equipement.id}`}>
