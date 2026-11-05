@@ -3,19 +3,19 @@ import type { Incident, FormIncident, FormEvaluation } from '../types';
 import { appeler, lireJson } from './client';
 
 export const getIncidentById = async (incidentId: number): Promise<Incident | undefined> => {
-    const reponse = await appeler(`/api/incidents/${incidentId}`);
+    const reponse = await appeler(`incidents/${incidentId}`);
     if (reponse.status === 404) return undefined;
     return convertIncidentDate(await lireJson<Incident>(reponse));
 };
 
 export const getIncidentByEquipement = async (equipmentId: number): Promise<Incident[]> => {
-    const reponse = await appeler(`/api/equipements/${equipmentId}/incidents`);
+    const reponse = await appeler(`equipements/${equipmentId}/incidents`);
     const incidents = await lireJson<Incident[]>(reponse);
     return incidents.map(convertIncidentDate);
 };
 
 export const createIncident = async (formData: FormIncident): Promise<Incident> => {
-    const reponse = await appeler('/api/incidents', {
+    const reponse = await appeler('incidents', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -32,7 +32,7 @@ export const affecterPrestataire = async (
     incidentId: number,
     prestataireId: number,
 ): Promise<Incident> => {
-    const response = await appeler(`/api/incidents/${incidentId}/prestataire`, {
+    const response = await appeler(`incidents/${incidentId}/prestataire`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prestataireId }),
@@ -43,7 +43,7 @@ export const affecterPrestataire = async (
 export const resolveIncident = async (
     incidentId: number,
 ): Promise<Incident> => {
-    const response = await appeler(`/api/incidents/${incidentId}/resolve`, {
+    const response = await appeler(`incidents/${incidentId}/resolve`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
     });
@@ -51,7 +51,7 @@ export const resolveIncident = async (
 };
 
 export const createEvaluation = async (formData: FormEvaluation, incidentId: number): Promise<Incident> => {
-    const response = await appeler(`/api/incidents/${incidentId}/evaluation`, {
+    const response = await appeler(`incidents/${incidentId}/evaluation`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -60,5 +60,5 @@ export const createEvaluation = async (formData: FormEvaluation, incidentId: num
 };
 
 export const getHistoryIncidentsByEquipment = async (equipmentId: number): Promise<Incident[]> => {
-    return (await lireJson<Incident[]>(await appeler(`/api/equipements/${equipmentId}/history`))).map(convertIncidentDate);
+    return (await lireJson<Incident[]>(await appeler(`equipements/${equipmentId}/history`))).map(convertIncidentDate);
 };

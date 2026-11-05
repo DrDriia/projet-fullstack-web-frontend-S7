@@ -8,16 +8,16 @@ type UtilisateurDto = Omit<User, 'role' | 'dateCreation' | 'derniereConnexion'> 
 };
 
 export const login = async (username: string, password: string): Promise<User> => {
-    await appeler('/api/me');
+    await appeler('me');
 
-    const reponse = await appeler('/api/login', {
+    const reponse = await appeler('login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams({ username, password }),
     });
     if (!reponse.ok) throw new Error('Identifiant ou mot de passe invalide.');
 
-    const { profil, ...reste } = await lireJson<UtilisateurDto>(await appeler('/api/me'));
+    const { profil, ...reste } = await lireJson<UtilisateurDto>(await appeler('me'));
     return {
         ...reste,
         role: profil,
@@ -27,5 +27,5 @@ export const login = async (username: string, password: string): Promise<User> =
 };
 
 export const logout = async (): Promise<void> => {
-    await appeler('/api/logout', { method: 'POST' });
+    await appeler('logout', { method: 'POST' });
 };

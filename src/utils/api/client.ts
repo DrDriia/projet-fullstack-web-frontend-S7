@@ -1,3 +1,6 @@
+const API_URL = import.meta.env.VITE_API_URL;
+const COMPLETE_API_URL = `${API_URL}/api/`;
+
 const lireCookie = (nom: string): string | null => {
     const trouve = document.cookie.split('; ').find(c => c.startsWith(nom + '='));
     return trouve ? decodeURIComponent(trouve.split('=')[1]) : null;
@@ -7,7 +10,7 @@ export const appeler = async (url: string, options: RequestInit = {}): Promise<R
     const headers = new Headers(options.headers);
     const jeton = lireCookie('XSRF-TOKEN');
     if (jeton) headers.set('X-XSRF-TOKEN', jeton);
-    return fetch(url, { ...options, headers });
+    return fetch(`${COMPLETE_API_URL}${url}`, { ...options, headers, credentials: 'include' });
 };
 
 export const lireJson = async <T>(reponse: Response): Promise<T> => {
