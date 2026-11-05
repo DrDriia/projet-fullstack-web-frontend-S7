@@ -10,9 +10,10 @@ const PRIORITES: { value: Priority; label: string }[] = [
   { value: "CRITIQUE", label: "Critique" },
 ];
 
+
 export function IncidentForm({ equipement, onCreated }: {
   equipement: Equipement;
-  onCreated: () => void;
+  onCreated: (message: string) => void;
 }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -31,12 +32,17 @@ export function IncidentForm({ equipement, onCreated }: {
       declareParId: user?.id,
     };
 
-    await createIncident(formIncident);
+    const incident = await createIncident(formIncident);
+
+    onCreated(
+        incident.equipement?.fragile
+            ? "Incident déclaré avec succès. Cet équipement est fragile."
+            : "Incident déclaré avec succès."
+    );
 
     setTitle("");
     setDescription("");
     setPriority("BASSE");
-    onCreated();
   }
 
   return (

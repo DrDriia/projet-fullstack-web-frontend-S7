@@ -225,3 +225,12 @@
   font-size: 15px;
   font-weight: 600;
 }
+
+.incident-confirmation {
+  margin: 0.75rem 0;
+  padding: 0.75rem;
+  border-radius: 6px;
+  background: #eaf7ee;
+  color: #216b39;
+  font-weight: 600;
+}

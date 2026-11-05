@@ -21,4 +21,5 @@ export interface Equipement {
     etat: string;
     dateMiseService: Date;
     dateCreation: Date;
+    fragile: boolean;
 }

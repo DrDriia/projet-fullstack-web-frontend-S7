@@ -13,6 +13,7 @@ export interface DashboardIncident {
 
     equipementId: number;
     equipementReference: string;
+    equipementFragile: boolean;
     equipementLibelle: string;
     typeEquipement: string;
 

@@ -49,3 +49,23 @@
 .incidents-header h2 {
   margin: 0;
 }
+
+.details-header-badges {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.fragile-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background-color: #fff0e5;
+  color: #a33b00;
+  border: 1px solid #f2b58e;
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+}

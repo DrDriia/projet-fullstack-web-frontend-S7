@@ -1,9 +1,8 @@
-
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useUser } from '../../utils/context/useUser';
-import { getDashboard } from '../../utils/api/dashboard';
-import type { Dashboard, DashboardIncident } from '../../utils/types';
+import {useCallback, useEffect, useMemo, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {useUser} from '../../utils/context/useUser';
+import {getDashboard} from '../../utils/api/dashboard';
+import type {Dashboard, DashboardIncident} from '../../utils/types';
 import '../../styles/dashboard.css';
 
 type FiltreStatut = 'TOUS' | 'OUVERT' | 'AFFECTE';
@@ -192,6 +191,11 @@ export function DashboardPage() {
                                     <strong>{incident.stationNom}</strong>
                                     <small>{incident.equipementReference} · {incident.equipementLibelle}</small>
                                     <small>{incident.typeEquipement}{incident.stationVille ? ` · ${incident.stationVille}` : ''}</small>
+                                    {incident.equipementFragile && (
+                                        <span className="fragile-badge">
+            Équipement fragile
+        </span>
+                                    )}
                                 </td>
                                 <td>{formaterDate(incident.dateOuverture)}</td>
                                 <td>{formaterDuree(incident.dureeMinutes)}</td>
@@ -201,7 +205,8 @@ export function DashboardPage() {
                                         : 'En attente'}
                                 </td>
                                 <td>
-                                        <span className={`dashboard-attention attention-${incident.niveauAttention.toLowerCase()}`}>
+                                        <span
+                                            className={`dashboard-attention attention-${incident.niveauAttention.toLowerCase()}`}>
                                             {incident.niveauAttention === 'AFFECTE'
                                                 ? 'Affecté'
                                                 : incident.niveauAttention}
