@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL ?? '';
 const COMPLETE_API_URL = `${API_URL}/api/`;
 
 const lireCookie = (nom: string): string | null => {
